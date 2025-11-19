@@ -1,0 +1,27 @@
+---
+description: Fetch y comunicación con API Laravel
+globs: ["src/**/*.{astro,tsx,jsx,ts}"]
+alwaysApply: true
+---
+
+# Reglas – Fetch y API
+
+## Fetch en Astro (Build Time)
+- Para datos estáticos/semi-estáticos
+- Los fetch deben ejecutarse en frontmatter
+- Nunca fetch en runtime desde Astro
+
+## Fetch en React (Runtime)
+- Siempre manejar 3 estados: loading/error/success
+- Usar `fetchApi` para requests tipados
+- Manejar errores con try/catch
+- No duplicar lógica de fetch (centralizar en utils)
+
+## Helpers Requeridos
+- `fetchApi<T>()`
+- Clase `ApiError`
+
+## Anti-Patrones
+- Hardcodear URLs
+- Hacer fetch en cada render
+- Manejar promesas sin `async/await`

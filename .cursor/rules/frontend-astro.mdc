@@ -1,0 +1,40 @@
+---
+description: Reglas para componentes Astro (estático por defecto)
+globs: ["src/**/*.astro"]
+alwaysApply: true
+---
+
+# Reglas de Desarrollo – Astro (Frontend)
+
+## Principio Fundamental
+**Estático por defecto, interactivo solo cuando sea necesario.**
+
+- Todo lo que pueda ser Astro → debe ser Astro.
+- React solo usado para interactividad real.
+
+## Cuándo Usar Astro
+- Contenido 100% estático
+- HTML estructural, layouts y navegaciones
+- SEO + meta tags
+- Grids, cards, listas, galerías sin interactividad
+- Fetch de datos estáticos en build time
+
+## Reglas Estrictas
+- **PROHIBIDO** usar `<script>` del lado del cliente.
+- Siempre usar `Image` de `astro:assets`.
+- Never usar estado, eventos o efectos dentro del template.
+- Fetch estáticos en el frontmatter, nunca en runtime.
+
+## Estructura Correcta
+1. Imports  
+2. Tipos (Props)  
+3. `Astro.props`  
+4. Fetch estático (build time)  
+5. Lógica de servidor  
+6. Template HTML  
+7. Estilos opcionales
+
+## Optimización de Imágenes
+- Siempre WebP
+- `loading="lazy"` excepto hero principal
+- Tamaños definidos (no usar imágenes sin dimensiones)

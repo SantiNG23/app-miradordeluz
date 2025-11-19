@@ -1,0 +1,18 @@
+---
+description: Reglas para testing de frontend
+globs: ["src/**/*"]
+alwaysApply: true
+---
+
+# Reglas – Testing
+
+## Visual Testing
+- Chrome / Firefox / Safari
+- Mobile / Desktop
+- Modo oscuro (si aplica)
+
+## Performance Testing
+- Ejecutar Lighthouse antes de deploy
+
+## E2E Testing (Opcional)
+- Playwright recomendado

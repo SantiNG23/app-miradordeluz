@@ -1,0 +1,18 @@
+---
+description: Reglas para mejorar Web Vitals y performance
+globs: ["src/**/*"]
+alwaysApply: true
+---
+
+# Reglas – Performance
+
+## Principios
+- Minimizar bundles de React
+- Lazy load de componentes pesados
+- Prefetch automático en links
+
+## Objetivos
+- LCP < 2.5s
+- FID < 100ms
+- CLS < 0.1
+- Lighthouse > 95

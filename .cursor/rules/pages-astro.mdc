@@ -1,0 +1,23 @@
+---
+description: Estructura y reglas para páginas Astro
+globs: ["src/pages/**/*.astro"]
+alwaysApply: true
+---
+
+# Reglas – Páginas Astro
+
+## Estructura de Página
+1. Layout import  
+2. Datos estáticos  
+3. SEO metadata  
+4. Secciones estáticas  
+5. Componentes React (si es necesario)
+
+## Dynamic Routes
+- Usar `getStaticPaths`
+- Props deben ser serializables
+- No fetch en el template
+
+## Anti-Patrones
+- Repetir layouts
+- Crear páginas con demasiada interactividad

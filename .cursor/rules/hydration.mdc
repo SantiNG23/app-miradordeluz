@@ -1,0 +1,26 @@
+---
+description: Estrategias de hidratación para islas React en Astro
+globs: ["src/**/*.astro"]
+alwaysApply: true
+---
+
+# Reglas – Hidratación React
+
+## Directivas de Cliente
+- `client:visible` → preferido
+- `client:idle` → contenido no crítico
+- `client:load` → solo para funcionalidad crítica inmediata
+- `client:media` → casos responsive
+
+## Orden de Preferencia
+1. visible  
+2. idle  
+3. media  
+4. load  
+
+## Regla de Oro
+**NUNCA** hidratar sin justificación técnica clara.
+
+## Anti-Hidratación
+- No convertir componentes estáticos a React
+- No usar React solo para loops/map

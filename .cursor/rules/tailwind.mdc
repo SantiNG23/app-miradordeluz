@@ -1,0 +1,22 @@
+---
+description: Guía de estilo usando Tailwind CSS
+globs: ["src/**/*.{astro,html,tsx,jsx}"]
+alwaysApply: true
+---
+
+# Reglas – Tailwind CSS
+
+## Principios
+- Mobile-First siempre
+- Usar Tailwind utilities por defecto
+- `@apply` solo en patrones repetitivos
+- Prohibido usar CSS inline
+
+## Estilo
+- Usar colores del tema (no hardcodeados)
+- Tipografía controlada desde `tailwind.config`
+- "Spacing scale" de 4 o 8 (dependiendo del diseño)
+
+## Anti-Patrones
+- `class="bg-[#3b82f6]"` → prohibido
+- Estilos mezclados (“metade Tailwind/metade CSS”)

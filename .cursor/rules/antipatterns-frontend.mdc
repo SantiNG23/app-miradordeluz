@@ -1,0 +1,19 @@
+---
+description: Lista consolidada de anti-patrones prohibidos
+globs: ["src/**/*"]
+alwaysApply: true
+---
+
+# Anti-Patrones – PROHIBIDO
+
+❌ Usar React cuando Astro es suficiente  
+❌ `client:load` sin justificación  
+❌ Fetch estático en runtime  
+❌ CSS inline styles  
+❌ Ignorar estados loading/error  
+❌ Imágenes sin optimizar  
+❌ Alt text genérico  
+❌ Tipos faltantes en TS  
+❌ Hardcodear URLs  
+❌ Sacrificar accesibilidad por diseño  
+❌ Renderizar listas grandes sin memoization  

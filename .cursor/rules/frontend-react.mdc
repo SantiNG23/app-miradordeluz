@@ -1,0 +1,41 @@
+---
+description: Reglas para componentes React dentro de Astro
+globs: ["src/**/*.tsx", "src/**/*.jsx"]
+alwaysApply: true
+---
+
+# Reglas de Desarrollo – React (Islas Interactivas)
+
+## Cuándo usar React
+Solo si hay interactividad real:
+- Formularios complejos
+- Calendarios, date pickers
+- Modales, dropdowns, tooltips
+- Fetch en tiempo real
+- Estado del cliente
+
+## TypeScript Obligatorio
+- Todas las props tipadas (`interface Props {}`
+)
+- Prohibido usar `any`
+- Usar `unknown` si no se puede inferir
+- Estados siempre tipados
+
+## Estructura del Componente
+1. Imports
+2. Tipos (Props)
+3. Estados iniciales
+4. Effects
+5. Handlers
+6. Render conditions (`loading`, `error`)
+7. Render final
+
+## Condiciones de Renderizado Obligatorias
+- `loading` → skeleton
+- `error` → mensaje claro
+- `success` → datos reales
+
+## Anti-Patrones en React
+- No sobrehidratar (no todo necesita React)
+- No fetch dentro de condicionales
+- No lógica pesada dentro del render
