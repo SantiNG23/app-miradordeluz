@@ -366,3 +366,4 @@ Componente creado para el proyecto Mirador de Luz.
 **Última actualización**: 19/11/2024  
 **Versión**: 1.0.0
 
+

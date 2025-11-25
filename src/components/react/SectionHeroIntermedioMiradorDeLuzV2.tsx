@@ -1,0 +1,224 @@
+import { useState, useEffect, useRef, type FC } from 'react';
+
+interface SectionHeroIntermedioMiradorDeLuzV2Props {
+  backgroundImage?: string;
+  backgroundVideo?: string;
+  subheading?: string;
+  title?: string;
+  overlayOpacity?: 'light' | 'medium' | 'dark' | 'darker';
+  accentColor?: string;
+  hideNavbar?: boolean; // Nueva prop para controlar si se oculta el navbar
+  maxHeight?: string; // Altura máxima cuando está expandido (ej: '75vh', '80vh', '100vh')
+}
+
+const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV2Props> = ({
+  backgroundImage = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920',
+  backgroundVideo,
+  subheading = 'CERCA DE TODO',
+  title = 'Naturaleza & Confort.\nEn el Mirador de la Montaña.',
+  overlayOpacity = 'medium',
+  accentColor = 'text-amber-300',
+  hideNavbar = true,
+  maxHeight = '100vh',
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Mapear opacidad del overlay
+  const overlayClasses = {
+    light: 'bg-black/30',
+    medium: 'bg-black/50',
+    dark: 'bg-black/60',
+    darker: 'bg-black/70',
+  };
+
+  // Intersection Observer para detectar cuando la sección está visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            // Delay para la expansión
+            setTimeout(() => {
+              setIsExpanded(true);
+            }, 100);
+
+            // Reproducir video cuando la sección esté visible
+            if (videoRef.current) {
+              videoRef.current.play().catch(err => {
+                console.log('Error al reproducir video:', err);
+              });
+            }
+          } else {
+            setIsInView(false);
+            setIsExpanded(false);
+
+            // Pausar video cuando la sección no esté visible
+            if (videoRef.current) {
+              videoRef.current.pause();
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Se activa cuando el 30% de la sección es visible
+        rootMargin: '0px',
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  // Efecto para ocultar/mostrar el navbar
+  useEffect(() => {
+    if (!hideNavbar) return;
+
+    if (isInView) {
+      // Agregar clase al body para ocultar navbar
+      document.body.classList.add('hide-navbar');
+    } else {
+      // Remover clase del body
+      document.body.classList.remove('hide-navbar');
+    }
+
+    // Cleanup al desmontar el componente
+    return () => {
+      document.body.classList.remove('hide-navbar');
+    };
+  }, [isInView, hideNavbar]);
+
+  // Convertir saltos de línea en el título
+  const renderTitle = () => {
+    const lines = title.split('\n');
+    return lines.map((line, index) => (
+      <span key={index} className="block">
+        {line}
+      </span>
+    ));
+  };
+
+  return (
+    <section
+      ref={sectionRef}
+      className={`
+        relative overflow-hidden mx-auto
+        transition-all duration-1000 ease-out
+        ${isExpanded 
+          ? 'w-full rounded-none shadow-none' 
+          : 'h-[60vh] w-[95%] md:w-[85%] lg:w-[60%] rounded-2xl shadow-2xl'
+        }
+      `}
+      style={{
+        height: isExpanded ? maxHeight : undefined,
+      }}
+    >
+      {/* Video de fondo o Imagen de fondo */}
+      {backgroundVideo ? (
+        <div className="absolute inset-0">
+          <video
+            ref={videoRef}
+            className={`
+              absolute inset-0 w-full h-full object-cover
+              transition-all duration-1000 ease-out
+              ${isExpanded ? 'scale-100' : 'scale-110'}
+            `}
+            src={backgroundVideo}
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+          {/* Overlay oscuro */}
+          <div 
+            className={`
+              absolute inset-0 transition-opacity duration-1000
+              ${overlayClasses[overlayOpacity]}
+              ${isExpanded ? 'opacity-100' : 'opacity-80'}
+            `} 
+          />
+        </div>
+      ) : (
+        <div
+          className={`
+            absolute inset-0 bg-cover bg-center bg-no-repeat
+            transition-all duration-1000 ease-out
+            ${isExpanded ? 'scale-100' : 'scale-110'}
+          `}
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundPosition: 'center center',
+          }}
+        >
+          {/* Overlay oscuro */}
+          <div 
+            className={`
+              absolute inset-0 transition-opacity duration-1000
+              ${overlayClasses[overlayOpacity]}
+              ${isExpanded ? 'opacity-100' : 'opacity-80'}
+            `} 
+          />
+        </div>
+      )}
+
+      {/* Contenido centrado */}
+      <div
+        className={`
+          absolute inset-0 flex flex-col items-center justify-center text-center px-4
+          transition-all duration-1000 delay-200 ease-out
+          ${isExpanded 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-70 translate-y-4'
+          }
+        `}
+      >
+        {/* Etiqueta superior */}
+        {subheading && (
+          <div 
+            className={`
+              mb-4 md:mb-6
+              transition-all duration-1000 delay-300 ease-out
+              ${isExpanded 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 -translate-y-4'
+              }
+            `}
+          >
+            <span
+              className={`font-montserrat text-[14px] font-semibold ${accentColor} tracking-[0.2em] uppercase`}
+            >
+              {subheading}
+            </span>
+          </div>
+        )}
+
+        {/* Título principal */}
+        <h2 
+          className={`
+            font-montserrat text-[36px] md:text-[48px] lg:text-[64px] font-bold text-white leading-tight max-w-4xl px-4
+            transition-all duration-1000 delay-400 ease-out
+            ${isExpanded 
+              ? 'opacity-100 translate-y-0 scale-100' 
+              : 'opacity-0 translate-y-8 scale-95'
+            }
+          `}
+        >
+          {renderTitle()}
+        </h2>
+      </div>
+    </section>
+  );
+};
+
+export default SectionHeroIntermedioMiradorDeLuzV2;
+

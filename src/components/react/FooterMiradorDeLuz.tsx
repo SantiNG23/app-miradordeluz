@@ -127,7 +127,7 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
           <div className="space-y-6">
             {/* Logo */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+              <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
                 {logoTexto}
               </h2>
             </div>
@@ -135,8 +135,8 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
             {/* Enlace a Política de Sustentabilidad */}
             <a
               href="/politica-sustentabilidad"
-              className="inline-block text-gray-300 hover:text-green-400 
-                       transition-colors duration-300 text-sm"
+              className="font-montserrat inline-block text-gray-300 hover:text-green-400 
+                       transition-colors duration-300 text-sm font-medium"
             >
               Política de Sustentabilidad
             </a>
@@ -145,12 +145,12 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
           {/* Columna 2: Ubicación + Contacto + Redes */}
           <div className="space-y-4">
             {/* Título */}
-            <h3 className="text-xl font-semibold text-white mb-2">
+            <h3 className="font-montserrat text-xl font-semibold text-white mb-2">
               Ubicación
             </h3>
 
             {/* Dirección */}
-            <div className="text-gray-300 text-sm leading-relaxed space-y-1">
+            <div className="font-montserrat text-gray-300 text-sm font-medium leading-relaxed space-y-1">
               {direccion.split('\n').map((linea, idx) => (
                 <p key={idx}>{linea}</p>
               ))}
@@ -160,7 +160,7 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
             <div>
               <a
                 href={`tel:${telefono.replace(/\s/g, '')}`}
-                className="block text-white font-normal hover:text-yellow-300 
+                className="font-montserrat block text-white font-medium hover:text-yellow-300 
                          transition-colors duration-300 text-sm"
               >
                 {telefono}
@@ -171,7 +171,7 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
             <div>
               <a
                 href={`mailto:${email}`}
-                className="block text-white font-normal hover:text-yellow-300 
+                className="font-montserrat block text-white font-medium hover:text-yellow-300 
                          transition-colors duration-300 text-sm"
               >
                 {email}
@@ -197,7 +197,7 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
 
           {/* Columna 3: Explorar */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-white mb-2">
+            <h3 className="font-montserrat text-xl font-semibold text-white mb-2">
               Explorar
             </h3>
             <nav className="space-y-2">
@@ -205,8 +205,8 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
                 <a
                   key={idx}
                   href={link.url}
-                  className="block text-gray-300 hover:text-white 
-                           transition-colors duration-300 text-sm"
+                  className="font-montserrat block text-gray-300 hover:text-white 
+                           transition-colors duration-300 text-sm font-medium"
                 >
                   {link.texto}
                 </a>
@@ -217,7 +217,7 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
           {/* Columna 4: Suscripción */}
           {mostrarFormularioSuscripcion && (
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white mb-2">
+              <h3 className="font-montserrat text-xl font-semibold text-white mb-2">
                 Suscripción
               </h3>
 
@@ -229,8 +229,8 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   required
-                  className="w-full px-4 py-2 bg-white text-gray-900 
-                           placeholder-gray-500 text-sm rounded
+                  className="font-montserrat w-full px-4 py-2 bg-white text-gray-900 
+                           placeholder-gray-500 text-sm rounded font-medium
                            focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
 
@@ -241,20 +241,20 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
                   value={emailSuscripcion}
                   onChange={(e) => setEmailSuscripcion(e.target.value)}
                   required
-                  className="w-full px-4 py-2 bg-white text-gray-900 
-                           placeholder-gray-500 text-sm rounded
+                  className="font-montserrat w-full px-4 py-2 bg-white text-gray-900 
+                           placeholder-gray-500 text-sm rounded font-medium
                            focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
 
                 {/* Texto informativo */}
-                <p className="text-xs text-gray-300 leading-relaxed">
+                <p className="font-montserrat text-xs text-gray-300 leading-relaxed font-medium">
                   ¡Dejanos tus datos y recibí todas las promos en tu email!
                 </p>
 
                 {/* Botón */}
                 <button
                   type="submit"
-                  className="w-full px-5 py-2 bg-amber-600 hover:bg-amber-700 
+                  className="font-montserrat w-full px-5 py-2 bg-amber-600 hover:bg-amber-700 
                            text-white font-semibold rounded transition-colors 
                            duration-300 text-sm"
                 >
@@ -289,7 +289,7 @@ const FooterMiradorDeLuz: FC<FooterMiradorDeLuzProps> = ({
           )}
           
           {/* Copyright */}
-          <p className="text-sm text-gray-500 text-center">
+          <p className="font-montserrat text-sm text-gray-500 text-center font-medium">
             {textoDerechos}
           </p>
         </div>

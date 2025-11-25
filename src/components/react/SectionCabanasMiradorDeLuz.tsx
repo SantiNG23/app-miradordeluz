@@ -172,3 +172,4 @@ const SectionCabanasMiradorDeLuz: FC<SectionCabanasMiradorDeLuzProps> = ({
 
 export default SectionCabanasMiradorDeLuz;
 
+

@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import NavbarMiradorDeLuz from "../components/react/NavbarMiradorDeLuz";
+import NavbarVisibilityController from "../components/react/NavbarVisibilityController";
 import HeroMiradorDeLuz from "../components/react/HeroMiradorDeLuz";
 import SectionUbicacionMiradorDeLuz from "../components/react/SectionUbicacionMiradorDeLuz";
-import SectionHeroIntermedioMiradorDeLuz from "../components/react/SectionHeroIntermedioMiradorDeLuz";
-import SectionCabanasMiradorDeLuzV2 from "../components/react/SectionCabanasMiradorDeLuzV2";
-import SectionTestimoniosMiradorDeLuz from "../components/react/SectionTestimoniosMiradorDeLuz";
+import SectionHeroIntermedioMiradorDeLuzV2 from "../components/react/SectionHeroIntermedioMiradorDeLuzV2";
+import SectionCabanasMiradorDeLuzV3 from "../components/react/SectionCabanasMiradorDeLuzV3";
+import SectionServiciosInstalacionesMiradorDeLuz from "../components/react/SectionServiciosInstalacionesMiradorDeLuz";
+import SectionTestimoniosMiradorDeLuzV2 from "../components/react/SectionTestimoniosMiradorDeLuzV2";
 import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
 import ScrollAnimations from "../components/react/ScrollAnimations";
 ---
@@ -13,6 +15,9 @@ import ScrollAnimations from "../components/react/ScrollAnimations";
 <Layout title="Mirador de Luz - Cabañas en Carlos Paz">
   <!-- Navbar fijo que permanece visible durante el scroll -->
   <NavbarMiradorDeLuz client:load transparente={true} />
+
+  <!-- Controlador de visibilidad del navbar -->
+  <NavbarVisibilityController client:load />
 
   <!-- Componente de animaciones GSAP -->
   <ScrollAnimations client:load />
@@ -36,15 +41,15 @@ import ScrollAnimations from "../components/react/ScrollAnimations";
       <SectionUbicacionMiradorDeLuz client:visible />
     </div>
 
-    <!-- 3. Hero Intermedio con Video -->
+    <!-- 3. Hero Intermedio con Video (60% → 100% con animación) -->
     <div id="hero-intermedio-section" style="position: relative; z-index: 9;">
-      <SectionHeroIntermedioMiradorDeLuz
+      <SectionHeroIntermedioMiradorDeLuzV2
         client:visible
         backgroundVideo="/videos/VideoCarlosPaz.mp4"
         subheading="MIRADOR DE LUZ"
         title="Experiencia única.\nEntre las montañas."
         overlayOpacity="dark"
-        height="h-screen"
+        hideNavbar={false}
       />
     </div>
 
@@ -54,13 +59,18 @@ import ScrollAnimations from "../components/react/ScrollAnimations";
       style="position: relative; z-index: 11; background: white;"
     >
       <div id="cabanas">
-        <SectionCabanasMiradorDeLuzV2 client:visible />
+        <SectionCabanasMiradorDeLuzV3 client:visible />
       </div>
     </div>
 
-    <!-- 5. Testimonios Section -->
+    <!-- 5. Servicios e Instalaciones Section -->
+    <div id="servicios-instalaciones">
+      <SectionServiciosInstalacionesMiradorDeLuz client:visible />
+    </div>
+
+    <!-- 6. Testimonios Section -->
     <div id="testimonios">
-      <SectionTestimoniosMiradorDeLuz client:visible />
+      <SectionTestimoniosMiradorDeLuzV2 client:visible />
     </div>
   </main>
 

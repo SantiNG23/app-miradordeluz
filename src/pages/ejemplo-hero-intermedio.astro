@@ -1,54 +1,79 @@
 ---
-// Ejemplo de uso del componente SectionHeroIntermedioMiradorDeLuz
+// Ejemplo de uso del componente SectionHeroIntermedioMiradorDeLuzV2 con animación
 import Layout from "../layouts/Layout.astro";
-import SectionHeroIntermedioMiradorDeLuz from "../components/react/SectionHeroIntermedioMiradorDeLuz";
+import NavbarMiradorDeLuz from "../components/react/NavbarMiradorDeLuz";
+import SectionHeroIntermedioMiradorDeLuzV2 from "../components/react/SectionHeroIntermedioMiradorDeLuzV2";
 ---
 
 <Layout
   title="Hero Intermedio - Mirador de Luz"
-  description="Ejemplo del componente Hero Intermedio"
+  description="Hero con animación de expansión y ocultamiento de navbar"
 >
-  <!-- Ejemplo 1: Uso básico con valores por defecto -->
-  <SectionHeroIntermedioMiradorDeLuz client:load />
+  <!-- Navbar -->
+  <NavbarMiradorDeLuz client:load transparente={true} />
 
-  <!-- Separador visual -->
-  <div class="h-20 bg-white"></div>
+  <!-- Sección de relleno -->
+  <div class="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+    <div class="text-center px-4">
+      <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+        Hero con Animación de Expansión
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-600 mb-8">
+        Hacé scroll para ver el efecto
+      </p>
+      <div class="animate-bounce">
+        <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+    </div>
+  </div>
 
-  <!-- Ejemplo 2: Personalizado con overlay más oscuro -->
-  <SectionHeroIntermedioMiradorDeLuz
-    client:load
-    backgroundImage="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1920"
+  <!-- Hero con expansión (60vh → 100vh) -->
+  <SectionHeroIntermedioMiradorDeLuzV2
+    client:visible
+    backgroundVideo="/videos/VideoCarlosPaz.mp4"
     subheading="MIRADOR DE LUZ"
     title="Experiencia única.\nEntre las montañas."
     overlayOpacity="dark"
-    height="h-[70vh]"
+    hideNavbar={true}
   />
 
-  <!-- Separador visual -->
-  <div class="h-20 bg-white"></div>
-
-  <!-- Ejemplo 3: Con color de acento verde -->
-  <SectionHeroIntermedioMiradorDeLuz
-    client:load
-    backgroundImage="https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=1920"
-    subheading="DESCONECTÁ DE TODO"
-    title="Tu refugio natural.\nA minutos del centro."
-    overlayOpacity="medium"
-    accentColor="text-emerald-300"
-    height="h-[50vh]"
-  />
-
-  <!-- Ejemplo de contenido después -->
-  <section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-4">
-        Contenido de ejemplo
+  <!-- Contenido después -->
+  <div class="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
+    <div class="text-center px-4">
+      <h2 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+        Contenido Siguiente
       </h2>
-      <p class="text-center text-gray-600 max-w-2xl mx-auto">
-        Los hero intermedios son perfectos para separar secciones y mantener el
-        interés visual.
+      <p class="text-lg md:text-xl text-gray-600">
+        El hero se expande automáticamente al llegar a él
       </p>
     </div>
-  </section>
+  </div>
 </Layout>
+
+<style is:global>
+  /* Estilos para ocultar el navbar cuando la sección hero está visible */
+  body.hide-navbar nav,
+  body.hide-navbar header {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+    transition: all 0.5s ease-out;
+  }
+
+  /* Asegurar que el navbar vuelva a aparecer */
+  body:not(.hide-navbar) nav,
+  body:not(.hide-navbar) header {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: all 0.5s ease-out;
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
 

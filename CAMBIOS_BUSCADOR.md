@@ -263,3 +263,4 @@ className="rounded-2xl"   // Aún menos
 **Última actualización**: 19/11/2024  
 **Versión**: 2.0.0 - Diseño Minimalista
 
+

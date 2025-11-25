@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Configuración de fuente base */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /* Scroll suave para navegación con anclas */
 html {
   scroll-behavior: smooth;
@@ -11,4 +16,50 @@ html {
   html {
     scroll-padding-top: 64px;
   }
+}
+
+/* Estilos para ocultar el navbar cuando el hero intermedio está visible */
+body.hide-navbar nav,
+body.hide-navbar header {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: all 0.5s ease-out;
+}
+
+/* Asegurar que el navbar vuelva a aparecer cuando salga del hero */
+body:not(.hide-navbar) nav,
+body:not(.hide-navbar) header {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: all 0.5s ease-out;
+}
+
+/* Estilos para ocultar el navbar globalmente (fuera del Hero Principal) */
+body.hide-navbar-global nav,
+body.hide-navbar-global header {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: all 0.5s ease-out;
+}
+
+/* Asegurar que el navbar aparezca cuando estás en el Hero Principal */
+body:not(.hide-navbar-global) nav,
+body:not(.hide-navbar-global) header {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: all 0.5s ease-out;
+}
+
+/* Ocultar scrollbar en elementos con la clase scrollbar-hide */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

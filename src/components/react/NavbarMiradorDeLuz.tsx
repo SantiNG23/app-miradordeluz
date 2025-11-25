@@ -96,7 +96,6 @@ interface NavbarMiradorDeLuzProps {
 const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false }) => {
   const [seccionActual, setSeccionActual] = useState('hero-section');
   const [scrollY, setScrollY] = useState(0);
-  const [idioma, setIdioma] = useState('ESP');
   const [menuAbierto, setMenuAbierto] = useState(false);
 
   useEffect(() => {
@@ -147,10 +146,6 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
     };
   }, []);
 
-  const toggleIdioma = () => {
-    setIdioma(idioma === 'ESP' ? 'ENG' : 'ESP');
-  };
-
   const toggleMenu = () => {
     setMenuAbierto(!menuAbierto);
   };
@@ -190,7 +185,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
           <div className="flex items-center">
             <a 
               href="/" 
-              className={`text-xl md:text-2xl font-bold ${estiloActual.logoColor} tracking-wide ${estiloActual.hoverColor} transition-colors`}
+              className={`font-montserrat text-xl md:text-2xl font-bold ${estiloActual.logoColor} tracking-wide ${estiloActual.hoverColor} transition-colors`}
             >
               🏔️ Mirador de Luz
             </a>
@@ -198,18 +193,10 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
 
           {/* Desktop/Mobile Navigation - Siempre igual */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Selector de idioma */}
-            <button
-              onClick={toggleIdioma}
-              className={`font-medium ${estiloActual.textColor} ${estiloActual.hoverColor} transition-colors text-xs md:text-sm uppercase`}
-            >
-              {idioma}
-            </button>
-
             {/* Botón Reservas */}
             <a
               href="/reservas"
-              className={`bg-gradient-to-r ${estiloActual.buttonGradient} text-white 
+              className={`font-montserrat bg-gradient-to-r ${estiloActual.buttonGradient} text-white 
                        px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-semibold uppercase tracking-wide text-xs md:text-sm
                        transform hover:scale-105 transition-all shadow-lg`}
             >
@@ -272,15 +259,15 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
 
       {/* Menú lateral (Drawer) */}
       <div 
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out ${
           menuAbierto ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="flex flex-col h-full">
           {/* Header del menú con logo y botón cerrar */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center justify-center flex-1">
-              <span className="text-2xl font-bold text-gray-900">🏔️ Mirador de Luz</span>
+              <span className="font-montserrat text-xl font-bold text-gray-900">🏔️ Mirador de Luz</span>
             </div>
             <button 
               onClick={cerrarMenu}
@@ -294,13 +281,13 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
           </div>
 
           {/* Links de navegación */}
-          <nav className="flex-1 overflow-y-auto py-8 px-6">
-            <ul className="space-y-6">
+          <nav className="flex-1 overflow-y-auto py-6 px-4">
+            <ul className="space-y-4">
               <li>
                 <a 
                   href="/" 
                   onClick={cerrarMenu}
-                  className="text-lg font-semibold text-gray-900 hover:text-amber-600 transition-colors block"
+                  className="font-montserrat text-lg font-semibold text-gray-900 hover:text-amber-600 transition-colors block"
                 >
                   HOME
                 </a>
@@ -309,7 +296,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 <a 
                   href="#cabanas" 
                   onClick={cerrarMenu}
-                  className="text-lg font-semibold text-gray-900 hover:text-amber-600 transition-colors flex items-center justify-between"
+                  className="font-montserrat text-lg font-semibold text-gray-900 hover:text-amber-600 transition-colors flex items-center justify-between"
                 >
                   CABAÑAS
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,7 +308,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 <a 
                   href="#servicios" 
                   onClick={cerrarMenu}
-                  className="text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
+                  className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
                   SERVICIOS
                 </a>
@@ -330,7 +317,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 <a 
                   href="#galeria" 
                   onClick={cerrarMenu}
-                  className="text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
+                  className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
                   GALERÍA
                 </a>
@@ -339,7 +326,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 <a 
                   href="#testimonios" 
                   onClick={cerrarMenu}
-                  className="text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
+                  className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
                   TESTIMONIOS
                 </a>
@@ -348,7 +335,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 <a 
                   href="#ubicacion" 
                   onClick={cerrarMenu}
-                  className="text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
+                  className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
                   UBICACIÓN
                 </a>
@@ -357,7 +344,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 <a 
                   href="/contacto" 
                   onClick={cerrarMenu}
-                  className="text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
+                  className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
                   CONTACTO
                 </a>
@@ -366,10 +353,10 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
           </nav>
 
           {/* Footer del menú - Espacio para logo */}
-          <div className="border-t border-gray-200 p-6 flex items-center justify-center">
+          <div className="border-t border-gray-200 p-4 flex items-center justify-center">
             {/* TODO: Agregar logo de las cabañas aquí */}
-            <div className="w-full h-24 flex items-center justify-center bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-              <span className="text-gray-400 text-sm">Logo de Cabañas</span>
+            <div className="w-full h-20 flex items-center justify-center bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+              <span className="text-gray-400 text-xs">Logo de Cabañas</span>
             </div>
           </div>
         </div>

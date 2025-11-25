@@ -48,7 +48,7 @@ const SectionUbicacionMiradorDeLuz: FC<SectionUbicacionMiradorDeLuzProps> = ({
           fragmentos.forEach((fragmento, idx) => {
             if (fragmento.toLowerCase() === destacado.toLowerCase()) {
               nuevasPartes.push(
-                <span key={`${fragmento}-${idx}`} className="text-amber-600 font-semibold">
+                <span key={`${fragmento}-${idx}`} className="font-semibold text-[#A8936D]">
                   {fragmento}
                 </span>
               );
@@ -82,13 +82,13 @@ const SectionUbicacionMiradorDeLuz: FC<SectionUbicacionMiradorDeLuzProps> = ({
           <div className="space-y-6 lg:pr-8">
             {/* Etiqueta superior */}
             <div className="inline-block">
-              <span className="text-xs md:text-sm font-semibold text-amber-600 tracking-[0.3em] uppercase">
+              <span className="font-montserrat text-[14px] font-semibold text-[#A8936D] tracking-[0.2em] uppercase">
                 {etiqueta}
               </span>
             </div>
 
             {/* Título principal */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="font-montserrat text-[48px] md:text-[56px] lg:text-[64px] font-extrabold text-[#1E1E1E] leading-tight">
               {titulo}
             </h2>
 
@@ -97,7 +97,7 @@ const SectionUbicacionMiradorDeLuz: FC<SectionUbicacionMiradorDeLuzProps> = ({
               {parrafos.map((parrafo, index) => (
                 <p 
                   key={index}
-                  className="text-base md:text-lg text-gray-700 leading-relaxed"
+                  className="font-montserrat text-[16px] md:text-[18px] font-medium text-[#4A4A4A] leading-relaxed"
                 >
                   {highlightText(parrafo.texto, parrafo.destacados)}
                 </p>
@@ -107,7 +107,7 @@ const SectionUbicacionMiradorDeLuz: FC<SectionUbicacionMiradorDeLuzProps> = ({
             {/* Frase final destacada */}
             {fraseDestacada && (
               <div className="pt-4">
-                <p className="text-lg md:text-xl font-bold text-gray-900">
+                <p className="font-montserrat text-[18px] md:text-[20px] font-bold text-[#1E1E1E]">
                   {fraseDestacada}
                 </p>
               </div>
