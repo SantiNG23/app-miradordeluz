@@ -249,101 +249,13 @@ const HeroMiradorDeLuz: FC<HeroMiradorDeLuzProps> = ({
 
           {/* Caja de búsqueda de reservas */}
           <div className="w-full max-w-6xl">
-            <div className="bg-white rounded-full shadow-lg overflow-hidden">
-              {/* Desktop: Layout horizontal */}
-              <div className="hidden md:flex items-center divide-x divide-gray-200">
-                {/* Rango de fechas */}
-                <div className="flex-1 flex items-center gap-3 py-5 px-8">
-                  <div className="flex flex-col flex-1">
-                    <input
-                      type="text"
-                      value={fechaInicio && fechaFin ? `${fechaInicio} / ${fechaFin}` : ''}
-                      onFocus={(e) => e.target.type = 'date'}
-                      onBlur={(e) => e.target.type = 'text'}
-                      placeholder="Check in / Check out"
-                      className="text-sm text-gray-600 font-semibold border-none outline-none bg-transparent
-                               placeholder:text-gray-600 cursor-pointer"
-                    />
-                  </div>
-                  <div className="text-gray-400">
-                    <CalendarIcon />
-                  </div>
-                </div>
-
-                {/* Adultos */}
-                <GuestsCounter
-                  label="Adultos"
-                  count={adultos}
-                  onIncrement={() => setAdultos(adultos + 1)}
-                  onDecrement={() => setAdultos(adultos - 1)}
-                  min={1}
-                />
-
-                {/* Niños */}
-                <GuestsCounter
-                  label="Niños"
-                  count={ninos}
-                  onIncrement={() => setNinos(ninos + 1)}
-                  onDecrement={() => setNinos(ninos - 1)}
-                  min={0}
-                />
-
-                {/* Botón Reservar */}
-                <button
-                  onClick={handleSearch}
-                  className="bg-[#4a4a49] text-white font-semibold text-base px-10 py-5
-                           hover:bg-[#3a3a39] transition-all rounded-r-full
-                           flex items-center justify-center"
-                >
-                  Reservar
-                </button>
-              </div>
-
-              {/* Mobile: Layout vertical */}
-              <div className="flex md:hidden flex-col gap-4 p-6">
-                {/* Fechas */}
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center justify-between px-3 py-3 border border-gray-200 rounded-2xl">
-                    <input
-                      type="text"
-                      placeholder="Check in / Check out"
-                      className="flex-1 text-sm text-gray-600 font-semibold border-none outline-none bg-transparent"
-                      onFocus={(e) => {
-                        e.target.type = 'date';
-                        e.target.showPicker?.();
-                      }}
-                    />
-                    <CalendarIcon />
-                  </div>
-                </div>
-
-                {/* Adultos y Niños */}
-                <div className="grid grid-cols-2 gap-4 border border-gray-200 rounded-2xl p-4">
-                  <GuestsCounter
-                    label="Adultos"
-                    count={adultos}
-                    onIncrement={() => setAdultos(adultos + 1)}
-                    onDecrement={() => setAdultos(adultos - 1)}
-                    min={1}
-                  />
-                  <GuestsCounter
-                    label="Niños"
-                    count={ninos}
-                    onIncrement={() => setNinos(ninos + 1)}
-                    onDecrement={() => setNinos(ninos - 1)}
-                    min={0}
-                  />
-                </div>
-
-                {/* Botón Reservar */}
-                <button
-                  onClick={handleSearch}
-                  className="w-full bg-[#4a4a49] text-white font-semibold text-base py-4 rounded-full
-                           hover:bg-[#3a3a39] transition-all shadow-md"
-                >
-                  Reservar
-                </button>
-              </div>
+            <div className="flex justify-center mb-8">
+              <a
+                href="#cabanas"
+                className="inline-flex items-center gap-3 bg-amber-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 hover:shadow-lg transition transform"
+              >
+                Conoce nuestras cabañas
+              </a>
             </div>
           </div>
         </div>
