@@ -69,8 +69,8 @@ export default function DesignSystemContent() {
 
           {/* Brand/Primary */}
           <div className="space-y-2">
-            <div className="w-full h-20 rounded-xl bg-[#3182CE] flex items-center justify-center">
-              <span className="text-xs font-mono text-white">#3182CE</span>
+            <div className="w-full h-20 rounded-xl bg-[#181F54] flex items-center justify-center">
+              <span className="text-xs font-mono text-white">#181F54</span>
             </div>
             <p className="text-sm font-semibold text-[#2D3748]">
               Brand/Primary

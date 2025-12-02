@@ -11,7 +11,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       success: "bg-[#38A169]/15 text-[#38A169]",
       warning: "bg-[#DD6B20]/15 text-[#DD6B20]",
       error: "bg-[#E53E3E]/15 text-[#E53E3E]",
-      info: "bg-[#3182CE]/15 text-[#3182CE]",
+      info: "bg-[#181F54]/15 text-[#181F54]",
       default: "bg-[#718096]/15 text-[#718096]",
     };
 

@@ -138,7 +138,7 @@ export const CabanaFormModal: React.FC<CabanaFormModalProps> = ({
                         onClick={() => toggleCaracteristica(caracteristica.id)}
                         className={`relative px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
                           isSelected
-                            ? "bg-[#3182CE] text-white shadow-md"
+                            ? "bg-[#181F54] text-white shadow-md"
                             : "neu-button-secondary text-[#2D3748]"
                         }`}
                       >

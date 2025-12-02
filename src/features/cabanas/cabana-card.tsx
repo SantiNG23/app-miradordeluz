@@ -22,7 +22,7 @@ export const CabanaCard: React.FC<CabanaCardProps> = ({
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
-              <Home className="w-5 h-5 text-[#3182CE] shrink-0" />
+              <Home className="w-5 h-5 text-[#181F54] shrink-0" />
               <h3 className="font-bold text-[#2D3748] text-lg truncate">
                 {cabana.nombre}
               </h3>
@@ -39,7 +39,7 @@ export const CabanaCard: React.FC<CabanaCardProps> = ({
               onClick={() => onEdit(cabana)}
               className="w-10 h-10"
             >
-              <Edit className="w-4 h-4 text-[#3182CE]" />
+              <Edit className="w-4 h-4 text-[#181F54]" />
             </Button>
             <Button
               variant="icon"
@@ -74,7 +74,7 @@ export const CabanaCard: React.FC<CabanaCardProps> = ({
               {cabana.caracteristicas.map((caracteristica) => (
                 <span
                   key={caracteristica.id}
-                  className="px-3 py-1 rounded-full text-xs font-medium bg-[#3182CE]/10 text-[#3182CE]"
+                  className="px-3 py-1 rounded-full text-xs font-medium bg-[#181F54]/10 text-[#181F54]"
                 >
                   {caracteristica.nombre}
                 </span>

@@ -154,7 +154,7 @@ export const CaracteristicasModal: React.FC<CaracteristicasModalProps> = ({
                     key={caracteristica.id}
                     className={`neu-card-subtle rounded-xl p-4 flex items-start justify-between gap-4 transition-all ${
                       editingId === caracteristica.id
-                        ? "ring-2 ring-[#3182CE]"
+                        ? "ring-2 ring-[#181F54]"
                         : ""
                     }`}
                   >
@@ -176,7 +176,7 @@ export const CaracteristicasModal: React.FC<CaracteristicasModalProps> = ({
                         onClick={() => startEdit(caracteristica)}
                         className="w-10 h-10"
                       >
-                        <Edit className="w-4 h-4 text-[#3182CE]" />
+                        <Edit className="w-4 h-4 text-[#181F54]" />
                       </Button>
                       <Button
                         type="button"

@@ -71,7 +71,7 @@ export function CabanasPage() {
     return (
       <div className="flex items-center justify-center h-full">
         <div className="text-center">
-          <div className="inline-block w-12 h-12 border-4 border-[#3182CE] border-t-transparent rounded-full animate-spin mb-4" />
+          <div className="inline-block w-12 h-12 border-4 border-[#181F54] border-t-transparent rounded-full animate-spin mb-4" />
           <p className="text-[#718096] font-medium">Cargando cabañas...</p>
         </div>
       </div>
@@ -183,7 +183,7 @@ export function CabanasPage() {
           <p className="text-xs font-semibold text-[#718096] uppercase tracking-wide mb-1">
             Características
           </p>
-          <p className="text-2xl font-bold text-[#3182CE]">
+          <p className="text-2xl font-bold text-[#181F54]">
             {caracteristicas.length}
           </p>
         </div>

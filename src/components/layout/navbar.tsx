@@ -69,14 +69,14 @@ export function Navbar({ onMenuClick, onLogout }: NavbarProps) {
             className="lg:hidden neu-button w-11 h-11 rounded-xl flex items-center justify-center"
             aria-label="Abrir menú"
           >
-            <Menu className="w-5 h-5 text-[#3182CE]" />
+            <Menu className="w-5 h-5 text-[#181F54]" />
           </button>
 
           {/* Desktop Logo & Title */}
           <div className="hidden lg:flex items-center gap-3">
             <div className="neu-icon-wrap w-11 h-11 rounded-xl flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-[#3182CE]"
+                className="w-5 h-5 text-[#181F54]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -111,7 +111,7 @@ export function Navbar({ onMenuClick, onLogout }: NavbarProps) {
               className="neu-button w-11 h-11 rounded-xl flex items-center justify-center relative"
               aria-label="Notificaciones"
             >
-              <Bell className="w-5 h-5 text-[#3182CE]" />
+              <Bell className="w-5 h-5 text-[#181F54]" />
               {notifications.some((n) => n.unread) && (
                 <span className="absolute top-2 right-2 w-2 h-2 bg-[#E53E3E] rounded-full" />
               )}
@@ -148,7 +148,7 @@ export function Navbar({ onMenuClick, onLogout }: NavbarProps) {
                     </div>
                   ))}
                 </div>
-                <button className="w-full mt-3 text-sm text-[#3182CE] font-semibold hover:underline">
+                <button className="w-full mt-3 text-sm text-[#181F54] font-semibold hover:underline">
                   Ver todas
                 </button>
               </div>
@@ -166,7 +166,7 @@ export function Navbar({ onMenuClick, onLogout }: NavbarProps) {
               aria-label="Perfil"
             >
               <div className="neu-pressed w-7 h-7 rounded-lg flex items-center justify-center">
-                <User className="w-4 h-4 text-[#3182CE]" />
+                <User className="w-4 h-4 text-[#181F54]" />
               </div>
               <span className="hidden md:block text-sm font-semibold text-[#2D3748]">
                 Admin
@@ -190,10 +190,10 @@ export function Navbar({ onMenuClick, onLogout }: NavbarProps) {
                   </p>
                 </div>
                 <div className="py-2">
-                  <button className="w-full px-3 py-2.5 rounded-lg hover:bg-[#3182CE]/10 text-[#2D3748] text-sm font-medium text-left transition-colors">
+                  <button className="w-full px-3 py-2.5 rounded-lg hover:bg-[#181F54]/10 text-[#2D3748] text-sm font-medium text-left transition-colors">
                     Mi Perfil
                   </button>
-                  <button className="w-full px-3 py-2.5 rounded-lg hover:bg-[#3182CE]/10 text-[#2D3748] text-sm font-medium text-left transition-colors">
+                  <button className="w-full px-3 py-2.5 rounded-lg hover:bg-[#181F54]/10 text-[#2D3748] text-sm font-medium text-left transition-colors">
                     Configuración
                   </button>
                 </div>
