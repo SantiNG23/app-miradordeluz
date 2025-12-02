@@ -281,8 +281,8 @@
 
 .neu-modal {
   background: var(--neu-bg);
-  box-shadow: 0 25px 70px rgba(163, 177, 198, 0.35),
-    0 10px 30px rgba(163, 177, 198, 0.25), -10px -10px 25px var(--shadow-light);
+  box-shadow: 0 25px 70px rgba(163, 177, 198, 0.15),
+    0 10px 30px rgba(163, 177, 198, 0.08), -10px -10px 25px var(--shadow-light);
 }
 
 /* Accordion active state with inner shadow */

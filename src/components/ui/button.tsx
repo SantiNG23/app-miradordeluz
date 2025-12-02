@@ -16,7 +16,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "secondary", size = "md", ...props }, ref) => {
     const baseStyles =
-      "rounded-2xl font-semibold transition-all focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
+      "rounded-2xl font-semibold transition-all focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center";
 
     const variants = {
       primary: "neu-button-primary text-white",
