@@ -4,6 +4,8 @@
 
 Sistema completo de gestión para complejos de cabañas que permite administrar **reservas**, **clientes**, **cabañas**, **tarifas**, visualizar un **calendario** interactivo y generar **reportes** de ocupación e ingresos.
 
+**🆕 Incluye sistema completo de datos mock para desarrollo frontend independiente del backend.**
+
 ### **Características Principales**
 
 ✅ **Gestión de Reservas**
@@ -48,6 +50,14 @@ Sistema completo de gestión para complejos de cabañas que permite administrar 
 - Resumen diario (ocupación, ingresos, reservas)
 - Reporte de ocupación por período
 - Análisis de ingresos y estadísticas
+
+✅ **🧪 Sistema de Datos Mock**
+
+- Desarrollo frontend sin depender del backend
+- Datos de prueba realistas y coherentes
+- Simulación de latencia de red
+- Storage en memoria con CRUD completo
+- Migración simple a API real
 - Exportación de datos
 
 ✅ **Multi-tenant Preparado**
@@ -124,14 +134,28 @@ src/
 │   ├── cabanas.store.ts
 │   └── ui.store.ts
 │
+├── mocks/              # 🧪 Datos de prueba para desarrollo
+│   ├── config.ts       # Configuración de mocks
+│   ├── utils.ts        # Helpers (generateId, mockDelay, etc.)
+│   └── data/           # Datos organizados por módulo
+│       ├── clientes.ts
+│       ├── reservas.ts
+│       ├── cabanas.ts
+│       ├── tarifas.ts
+│       └── dashboard.ts
+│
 ├── types/              # TypeScript types
 ├── lib/                # Utilidades
 └── layouts/            # Layout components
 ```
 
-📖 **[Ver documentación detallada de la estructura](./EXPLICACION-ESTRUCTURA-FRONTEND.md)**
+📖 **Documentación**:
 
-📖 **[Ver arquitectura frontend](./FRONTEND-ARCHITECTURE.md)**
+- **[Índice de Documentación](./INDICE-DOCUMENTACION.md)** - Guía completa de navegación
+- **[Quick Start con Mocks](./MOCKS-GUIA-RAPIDA.md)** - ⚡ Empezar aquí
+- **[Estructura Detallada](./EXPLICACION-ESTRUCTURA-FRONTEND.md)** - Stack y arquitectura
+- **[Arquitectura Frontend](./FRONTEND-ARCHITECTURE.md)** - Endpoints API
+- **[Reglas de Desarrollo](./REGLAS-DESARROLLO.md)** - Buenas prácticas
 
 ---
 
@@ -140,7 +164,7 @@ src/
 ### **Prerrequisitos**
 
 - Node.js 18+ y npm/pnpm
-- Backend corriendo en `http://localhost:8080/api` (o configurar URL)
+- Backend (opcional - puede desarrollar con datos mock)
 
 ### **Instalación**
 
@@ -154,16 +178,42 @@ npm install
 
 # Configurar variables de entorno
 cp .env.example .env
-# Editar .env con tus valores
 ```
 
-### **Desarrollo**
+### **Configuración de Variables de Entorno**
 
 ```bash
-# Iniciar servidor de desarrollo
+# .env
+VITE_API_BASE_URL=http://localhost:8080/api
+VITE_APP_NAME=Sistema de Gestión de Cabañas
+VITE_TENANT_ID=1
+
+# 🧪 Datos Mock - Habilitar para desarrollo sin backend
+VITE_USE_MOCKS=true  # true = mocks | false = API real
+```
+
+### **Desarrollo con Datos Mock (Sin Backend)**
+
+```bash
+# 1. Asegurar que VITE_USE_MOCKS=true en .env
+# 2. Iniciar servidor de desarrollo
 npm run dev
 
-# Abrir en navegador: http://localhost:5173
+# 3. Abrir en navegador: http://localhost:5173
+# ✅ Frontend funciona completamente sin backend
+# ✅ Datos de prueba realistas
+# ✅ CRUD completo en memoria
+```
+
+📖 **[Ver guía completa de mocks](./MOCKS-GUIA-RAPIDA.md)**
+
+### **Desarrollo con API Real (Backend listo)**
+
+```bash
+# 1. Cambiar VITE_USE_MOCKS=false en .env
+# 2. Asegurar que backend esté corriendo
+# 3. Iniciar servidor de desarrollo
+npm run dev
 ```
 
 ### **Producción**

@@ -1,0 +1,650 @@
+# Reglas de Desarrollo - Sistema de Gestión Hotelera Frontend
+
+## 🎯 Stack Tecnológico Base
+
+- React 18.3.1 + TypeScript 5.3.3
+- Vite 5.1.0 (build tool)
+- React Router DOM 6.22.0
+- Zustand 4.5.0 (estado global)
+- TanStack React Query 5.20.0 (server state)
+- React Hook Form 7.50.0 + Zod 3.22.4 (formularios)
+- Radix UI + Tailwind CSS 3.4.1 (UI)
+- date-fns 3.3.0 (fechas)
+
+---
+
+## 📂 Organización de Archivos
+
+### Convenciones de Nombres
+
+- **Archivos**: kebab-case (`dashboard-page.tsx`, `use-clientes.ts`)
+- **Componentes**: PascalCase (`DashboardPage`, `ClientForm`)
+- **Funciones/Variables**: camelCase (`fetchReservas`, `isLoading`)
+- **Tipos/Interfaces**: PascalCase (`Reserva`, `Cliente`, `EstadoReserva`)
+- **Constantes**: UPPER_SNAKE_CASE (`API_BASE_URL`, `MAX_RETRY_ATTEMPTS`)
+
+### Ubicación de Archivos
+
+- `src/components/ui/` → Componentes shadcn/ui genéricos (Button, Dialog, Input)
+- `src/components/layout/` → Navbar, Sidebar
+- `src/components/common/` → Componentes compartidos con lógica específica
+- `src/pages/` → Páginas completas organizadas por módulo
+- `src/features/` → Componentes y lógica específica de dominio
+- `src/hooks/` → Custom hooks de React Query
+- `src/services/` → Llamadas API organizadas por entidad
+- `src/store/` → Stores de Zustand por dominio
+- `src/types/` → Definiciones TypeScript centralizadas
+- `src/mocks/` → Datos de prueba para desarrollo frontend
+  - `src/mocks/data/` → Datos mock organizados por módulo
+
+---
+
+## 🧩 Componentes
+
+### Estructura de Componentes
+
+```typescript
+// 1. Imports agrupados
+import { useState } from "react"; // React
+import { useForm } from "react-hook-form"; // Librerías externas
+import { Button } from "@/components/ui/button"; // Componentes UI
+import { useClientes } from "@/hooks/use-clientes"; // Hooks
+import type { Cliente } from "@/types"; // Tipos
+
+// 2. Tipos/Interfaces del componente
+interface ComponentNameProps {
+  id: string;
+  onSuccess?: () => void;
+}
+
+// 3. Componente funcional con FC tipado
+export const ComponentName: React.FC<ComponentNameProps> = ({
+  id,
+  onSuccess,
+}) => {
+  // 4. Hooks en orden: state, context, queries, mutations, forms
+  const [isOpen, setIsOpen] = useState(false);
+  const { data, isLoading } = useClientes();
+  const createMutation = useCreateCliente();
+
+  // 5. Handlers y funciones
+  const handleSubmit = async (data: FormData) => {
+    // Implementación
+  };
+
+  // 6. Early returns (loading, error, empty states)
+  if (isLoading) return <LoadingSpinner />;
+
+  // 7. JSX principal
+  return <div className="...">{/* contenido */}</div>;
+};
+```
+
+### Reglas de Componentes
+
+- Usar componentes funcionales con arrow functions
+- Tipar todos los props con interfaces (NO usar `any`)
+- Máximo 300 líneas por componente, si excede → dividir
+- Extraer lógica compleja a custom hooks
+- Preferir composición sobre renderizado condicional profundo
+- Evitar prop drilling > 2 niveles, usar context o Zustand
+
+---
+
+## 🎨 Estilos con Tailwind CSS
+
+### Reglas de Clases
+
+- Usar `cn()` de `@/lib/utils` para combinar clases dinámicas
+- Orden de clases: layout → spacing → sizing → colors → typography → effects
+- Usar variables CSS para temas (`bg-background`, `text-foreground`)
+- Mobile-first: sin prefijo = mobile, `md:` desktop
+- Evitar CSS inline, usar Tailwind o CSS Modules si es necesario
+
+### Ejemplo de Ordenamiento
+
+```typescript
+<div className={cn(
+  // Layout
+  "flex flex-col",
+  // Spacing
+  "gap-4 p-6",
+  // Sizing
+  "w-full max-w-lg",
+  // Colors
+  "bg-card text-card-foreground",
+  // Typography
+  "text-sm font-medium",
+  // Effects
+  "rounded-lg shadow-md",
+  // Responsive
+  "md:flex-row md:gap-6",
+  // Condicionales
+  isActive && "border-2 border-primary"
+)}>
+```
+
+---
+
+## 📡 Gestión de Estado
+
+### Zustand (Estado Local/UI)
+
+- Crear stores pequeños por dominio (`auth.store.ts`, `ui.store.ts`)
+- Usar slices para organizar stores grandes
+- NO almacenar datos del servidor (usar React Query)
+- Siempre exportar hooks selectores para evitar re-renders
+
+```typescript
+// ✅ Correcto
+export const useIsSidebarOpen = () =>
+  useUIStore((state) => state.isSidebarOpen);
+
+// ❌ Incorrecto
+const { allTheStore } = useUIStore(); // Re-render innecesario
+```
+
+### React Query (Server State)
+
+- Usar para TODAS las operaciones con el backend
+- Keys descriptivas por dominio: `['clientes', 'list']`, `['reservas', id]`
+- Configurar `staleTime` y `cacheTime` según caso de uso
+- Invalidar queries relacionadas tras mutaciones
+- Optimistic updates para mejor UX
+
+```typescript
+// ✅ Estructura correcta
+export const useClientes = (filters?: ClienteFilters) => {
+  return useQuery({
+    queryKey: ["clientes", "list", filters],
+    queryFn: () => clientesService.getAll(filters),
+    staleTime: 5 * 60 * 1000, // 5 minutos
+  });
+};
+
+export const useCreateCliente = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: clientesService.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["clientes"] });
+      toast.success("Cliente creado exitosamente");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+```
+
+---
+
+## 📝 Formularios
+
+### React Hook Form + Zod
+
+- SIEMPRE validar con schemas Zod
+- Usar `zodResolver` para integración
+- Centralizar schemas en `src/types/schemas.ts` si son compartidos
+- Mensajes de error en español, específicos y útiles
+- Deshabilitar botón submit durante isSubmitting
+
+### Estructura de Formulario
+
+```typescript
+// 1. Schema Zod
+const clienteSchema = z.object({
+  nombre: z.string().min(2, "Mínimo 2 caracteres"),
+  dni: z.string().regex(/^\d{7,8}$/, "DNI inválido"),
+  email: z.string().email("Email inválido").optional(),
+});
+
+type ClienteFormData = z.infer<typeof clienteSchema>;
+
+// 2. Componente
+export const ClienteForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ClienteFormData>({
+    resolver: zodResolver(clienteSchema),
+  });
+
+  const createMutation = useCreateCliente();
+
+  const onSubmit = async (data: ClienteFormData) => {
+    await createMutation.mutateAsync(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div>
+        <Label htmlFor="nombre">Nombre</Label>
+        <Input id="nombre" {...register("nombre")} />
+        {errors.nombre && (
+          <p className="text-sm text-destructive">{errors.nombre.message}</p>
+        )}
+      </div>
+
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Guardando..." : "Guardar"}
+      </Button>
+    </form>
+  );
+};
+```
+
+---
+
+## 🔗 Servicios API
+
+### Estructura de Services
+
+- Un archivo por entidad en `src/services/`
+- Centralizar configuración Axios en `api.ts`
+- Tipar requests y responses
+- NO manejar errores en services (dejar que suban a React Query)
+- Incluir headers necesarios (`X-Tenant-ID`, `Authorization`)
+- Soportar datos mock para desarrollo (ver sección Datos Mock)
+
+### Ejemplo de Service con Mock Support
+
+```typescript
+// src/services/clientes.service.ts
+import { apiClient } from "./api";
+import { MOCK_CLIENTES, isMockEnabled, mockDelay } from "@/mocks";
+import type { Cliente, ClienteFilters, CreateClienteDTO } from "@/types";
+
+export const clientesService = {
+  getAll: async (filters?: ClienteFilters) => {
+    // Usar mocks si están habilitados
+    if (isMockEnabled("clientes")) {
+      await mockDelay(); // Simula latencia de red
+      return MOCK_CLIENTES;
+    }
+
+    // API real
+    const { data } = await apiClient.get<Cliente[]>("/clientes", {
+      params: filters,
+    });
+    return data;
+  },
+
+  getById: async (id: string) => {
+    if (isMockEnabled("clientes")) {
+      await mockDelay();
+      const cliente = MOCK_CLIENTES.find((c) => c.id === id);
+      if (!cliente) throw new Error("Cliente no encontrado");
+      return cliente;
+    }
+
+    const { data } = await apiClient.get<Cliente>(`/clientes/${id}`);
+    return data;
+  },
+
+  create: async (cliente: CreateClienteDTO) => {
+    if (isMockEnabled("clientes")) {
+      await mockDelay();
+      // Implementación mock (ver MOCKS-ESTRUCTURA.md)
+      return { id: generateId(), ...cliente };
+    }
+
+    const { data } = await apiClient.post<Cliente>("/clientes", cliente);
+    return data;
+  },
+};
+```
+
+### Ejemplo sin Mock Support (API real directa)
+
+````typescript
+// src/services/clientes.service.ts (sin mocks)
+
+```typescript
+// src/services/clientes.service.ts
+import { apiClient } from "./api";
+import type { Cliente, ClienteFilters, CreateClienteDTO } from "@/types";
+
+export const clientesService = {
+  getAll: async (filters?: ClienteFilters) => {
+    const { data } = await apiClient.get<Cliente[]>("/clientes", {
+      params: filters,
+    });
+    return data;
+  },
+
+  getById: async (id: string) => {
+    const { data } = await apiClient.get<Cliente>(`/clientes/${id}`);
+    return data;
+  },
+
+  create: async (cliente: CreateClienteDTO) => {
+    const { data } = await apiClient.post<Cliente>("/clientes", cliente);
+    return data;
+  },
+
+  update: async (id: string, cliente: Partial<CreateClienteDTO>) => {
+    const { data } = await apiClient.put<Cliente>(`/clientes/${id}`, cliente);
+    return data;
+  },
+
+  delete: async (id: string) => {
+    await apiClient.delete(`/clientes/${id}`);
+  },
+};
+````
+
+---
+
+## 🛡️ TypeScript
+
+### Reglas Estrictas
+
+- NO usar `any`, usar `unknown` si es necesario y hacer type guards
+- Activar modo strict en `tsconfig.json`
+- Tipar todas las funciones (params y return)
+- Usar `type` para unions/intersections, `interface` para objetos extendibles
+- Preferir `as const` sobre type casting cuando sea posible
+- Exportar tipos desde `src/types/index.ts`
+
+### Tipos de Entidades
+
+```typescript
+// src/types/index.ts
+export interface Cliente {
+  id: string;
+  nombre: string;
+  apellido: string;
+  dni: string;
+  email?: string;
+  telefono: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CreateClienteDTO = Omit<Cliente, "id" | "createdAt" | "updatedAt">;
+
+export type UpdateClienteDTO = Partial<CreateClienteDTO>;
+
+export interface ClienteFilters {
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+```
+
+---
+
+## 🚨 Manejo de Errores
+
+### Estrategia de Errores
+
+- React Query maneja errores de API automáticamente
+- Mostrar toasts para errores críticos
+- Inline errors para validaciones de formularios
+- Error boundaries para errores de renderizado
+- Logging de errores en consola durante desarrollo
+
+### Implementación
+
+```typescript
+// Mutation con manejo de errores
+export const useCreateReserva = () => {
+  return useMutation({
+    mutationFn: reservasService.create,
+    onError: (error: Error) => {
+      // Errores esperados (validación backend)
+      if (error.message.includes("solapamiento")) {
+        toast.error("Las fechas se solapan con otra reserva");
+        return;
+      }
+
+      // Error genérico
+      toast.error("Error al crear la reserva. Intente nuevamente.");
+      console.error("Error creando reserva:", error);
+    },
+    onSuccess: () => {
+      toast.success("Reserva creada exitosamente");
+    },
+  });
+};
+```
+
+---
+
+## ⚡ Performance
+
+### Optimizaciones Requeridas
+
+- Usar `React.memo()` para componentes pesados que reciben props estables
+- `useMemo()` para cálculos costosos
+- `useCallback()` para funciones pasadas como props
+- Lazy loading de rutas con `React.lazy()` y `Suspense`
+- Pagination para listas largas (> 50 items)
+- Virtualization para tablas con > 200 filas
+- Debounce en búsquedas (300ms)
+- Optimistic updates en mutaciones
+
+### Ejemplo de Optimización
+
+```typescript
+// Debounce en búsqueda
+const [search, setSearch] = useState("");
+const debouncedSearch = useMemo(
+  () => debounce((value: string) => setSearch(value), 300),
+  []
+);
+
+// Memoización de cálculos
+const totalPrice = useMemo(() => {
+  return calculatePrice(fechaInicio, fechaFin, cabanaId);
+}, [fechaInicio, fechaFin, cabanaId]);
+```
+
+---
+
+## ♿ Accesibilidad
+
+### Requisitos A11y
+
+- Componentes Radix UI son accesibles por defecto, NO modificar estructura ARIA
+- Siempre asociar `<Label>` con inputs usando `htmlFor`
+- Botones con texto descriptivo o `aria-label` si solo tienen icono
+- Navegación por teclado funcional (Tab, Enter, Esc)
+- Contraste mínimo WCAG AA (4.5:1 para texto)
+- Estados de focus visibles
+
+---
+
+## 🧪 Testing (Cuando se implemente)
+
+### Cobertura Esperada
+
+- Componentes críticos: formularios, modales, tablas
+- Custom hooks de React Query
+- Utilidades y funciones puras
+- No testear componentes UI de shadcn/ui
+
+---
+
+## 📦 Imports y Exports
+
+### Organización
+
+- Usar alias `@/` para imports desde `src/`
+- Agrupar imports: React → Librerías → Componentes → Hooks → Tipos
+- Named exports para componentes y funciones
+- Default export solo en páginas si React Router lo requiere
+- Barrel exports (`index.ts`) en features y components
+
+### Ejemplo
+
+```typescript
+// ✅ Correcto
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { useClientes } from "@/hooks/use-clientes";
+import type { Cliente } from "@/types";
+
+// ❌ Incorrecto
+import type { Cliente } from "../../types";
+import { Button } from "../../../components/ui/button";
+```
+
+---
+
+## 🔐 Seguridad
+
+### Buenas Prácticas
+
+- NO almacenar tokens en localStorage, usar httpOnly cookies (coordinar con backend)
+- Sanitizar inputs antes de enviar al servidor
+- Validar SIEMPRE en backend (frontend es validación UX)
+- NO exponer información sensible en logs del cliente
+- Implementar rate limiting visual en formularios críticos
+
+---
+
+## 🧪 Datos Mock para Desarrollo
+
+### Estructura y Organización
+
+- **Ubicación**: `src/mocks/` con datos organizados por módulo
+- **Configuración**: `src/mocks/config.ts` para habilitar/deshabilitar
+- **Datos**: Un archivo por módulo en `src/mocks/data/`
+- **Utilidades**: Helpers en `src/mocks/utils.ts`
+
+### Reglas de Datos Mock
+
+1. **Siempre usar mocks en servicios** durante desarrollo inicial
+2. **Verificar con `isMockEnabled()`** antes de retornar datos mock
+3. **Simular latencia** con `mockDelay()` para UX realista
+4. **Fechas relativas** usar `generateISODate(offset)` nunca fechas hardcoded
+5. **Datos coherentes** relaciones entre entidades deben ser válidas
+6. **IDs consistentes** seguir convención: `cli_`, `cab_`, `res_`, etc.
+7. **Casos variados** incluir success, empty, edge cases
+
+### Convenciones de IDs Mock
+
+- Clientes: `cli_001`, `cli_002`, ...
+- Cabañas: `cab_001`, `cab_002`, ...
+- Características: `car_001`, `car_002`, ...
+- Grupos Precio: `gp_001`, `gp_002`, ...
+- Rangos Precio: `rp_001`, `rp_002`, ...
+- Reservas: `res_001`, `res_002`, ...
+- Huéspedes: `hue_001`, `hue_002`, ...
+- Pagos: `pag_001`, `pag_002`, ...
+
+### Ejemplo de Implementación
+
+```typescript
+// src/services/clientes.service.ts
+import { isMockEnabled, mockDelay, MOCK_CLIENTES } from "@/mocks";
+
+export const clientesService = {
+  getAll: async () => {
+    if (isMockEnabled("clientes")) {
+      await mockDelay();
+      return MOCK_CLIENTES;
+    }
+    const { data } = await apiClient.get("/clientes");
+    return data;
+  },
+};
+```
+
+### Migración a API Real
+
+1. Cambiar `MOCK_CONFIG.modules.[modulo]` a `false`
+2. Verificar que API real retorna estructura idéntica
+3. Mantener mocks para testing (NO eliminar)
+
+**Documentación completa**: Ver `MOCKS-ESTRUCTURA.md`
+
+---
+
+## 📱 Responsive Design
+
+### Breakpoints Tailwind
+
+- mobile: sin prefijo (< 768px)
+- tablet: `md:` (≥ 768px)
+- desktop: `lg:` (≥ 1024px)
+- large desktop: `xl:` (≥ 1280px)
+
+### Reglas
+
+- Mobile-first: diseñar para mobile y escalar a desktop
+- Tablas responsivas: scroll horizontal o cards en mobile
+- Modales full-screen en mobile, centered en desktop
+- Sidebar colapsable en mobile
+
+---
+
+## 📖 Comentarios y Documentación
+
+### Cuándo Comentar
+
+- Lógica de negocio compleja
+- Workarounds temporales (con `TODO:` y fecha)
+- Algoritmos no obvios
+- Decisiones arquitectónicas importantes
+
+### NO Comentar
+
+- Código autoexplicativo
+- Qué hace el código (el código debe ser legible)
+
+### JSDoc para Funciones Públicas
+
+```typescript
+/**
+ * Calcula el precio total de una reserva según las tarifas vigentes
+ * @param fechaInicio - Fecha de check-in
+ * @param fechaFin - Fecha de check-out
+ * @param cabanaId - ID de la cabaña
+ * @returns Precio total calculado con impuestos
+ */
+export const calculateReservaPrice = (
+  fechaInicio: Date,
+  fechaFin: Date,
+  cabanaId: string
+): number => {
+  // Implementación
+};
+```
+
+---
+
+## 🚀 Build y Deploy
+
+### Antes de Commit
+
+- Correr `npm run lint` sin errores
+- Verificar build con `npm run build`
+- NO commitear console.logs (excepto errores críticos)
+- Variables de entorno en `.env` (nunca hardcoded)
+
+---
+
+## 🎯 Prioridades de Desarrollo
+
+1. **Funcionalidad** → El código debe funcionar correctamente
+2. **Tipos** → TypeScript estricto sin `any`
+3. **UX** → Loading states, error handling, feedback visual
+4. **Performance** → Solo optimizar si hay problema real
+5. **Refactoring** → Mejorar código solo si agrega valor
+
+---
+
+## 🔄 Multi-Tenant
+
+### Configuración Actual
+
+- Header `X-Tenant-ID: 1` en todas las requests (MVP)
+- Preparado para escalar: `authStore.user.tenantId`
+- Interceptor Axios añade header automáticamente
+- NO hardcodear tenant ID fuera de `api.ts`
