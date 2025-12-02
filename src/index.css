@@ -2,58 +2,510 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
+/* Sophisticated Soft UI color system */
+:root {
+  /* Updated color palette per design spec */
+  --background: #e0e5ec;
+  --foreground: #2d3748;
+  --card: #e0e5ec;
+  --card-foreground: #2d3748;
+  --popover: #e0e5ec;
+  --popover-foreground: #2d3748;
+  --primary: #3182ce;
+  --primary-foreground: #ffffff;
+  --secondary: #dfe4e8;
+  --secondary-foreground: #2d3748;
+  --muted: #dfe4e8;
+  --muted-foreground: #718096;
+  --accent: #3182ce;
+  --accent-foreground: #ffffff;
+  --destructive: #e53e3e;
+  --destructive-foreground: #ffffff;
+  --border: #d1d5db;
+  --input: #d1d5db;
+  --ring: #3182ce;
+  --chart-1: #3182ce;
+  --chart-2: #38a169;
+  --chart-3: #dd6b20;
+  --chart-4: #8b5cf6;
+  --chart-5: #3b82f6;
+  --radius: 1rem;
+  --sidebar: #e0e5ec;
+  --sidebar-foreground: #2d3748;
+  --sidebar-primary: #3182ce;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #dfe4e8;
+  --sidebar-accent-foreground: #2d3748;
+  --sidebar-border: #d1d5db;
+  --sidebar-ring: #3182ce;
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
+  /* Refined 3-Tier Shadow System */
+  --neu-bg: #e0e5ec;
+  --shadow-light: rgba(255, 255, 255, 0.85);
+  --shadow-dark: rgba(163, 177, 198, 0.6);
+  --shadow-dark-strong: rgba(163, 177, 198, 0.4);
+
+  /* Updated text hierarchy per spec */
+  --text-heading: #2d3748;
+  --text-body: #2d3748;
+  --text-muted: #718096;
+  --text-subtle: #9ca3af;
+
+  /* Updated accent colors per spec */
+  --accent-primary: #3182ce;
+  --accent-primary-light: rgba(49, 130, 206, 0.12);
+
+  /* Updated status colors per spec */
+  --status-confirmed: #38a169;
+  --status-pending: #dd6b20;
+  --status-cancelled: #e53e3e;
+  --status-checkin: #3182ce;
+  --status-checkout: #8b5cf6;
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Level 1: Micro-Depth - Subtle inner shadows for inputs & active states */
+.neu-input {
+  background: var(--neu-bg);
+  box-shadow: inset 3px 3px 7px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-input:focus {
+  box-shadow: inset 3px 3px 7px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light), 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.neu-pressed {
+  background: var(--neu-bg);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Level 2: Mid-Depth - Soft dual shadow for cards, delicate and elegant */
+.neu-card {
+  background: var(--neu-bg);
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+    -8px -8px 16px var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+.neu-card-subtle {
+  background: var(--neu-bg);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+.neu-flat {
+  background: var(--neu-bg);
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+/* Buttons - soft and tactile */
+.neu-button {
+  background: linear-gradient(145deg, #f0f5f9, #d1d9e6);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-button:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.neu-button:active {
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Primary button variant */
+.neu-button-primary {
+  background: linear-gradient(145deg, #3a91de, #2a74b8);
+  color: white;
+  box-shadow: 5px 5px 10px rgba(49, 130, 206, 0.35),
+    -3px -3px 8px var(--shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.neu-button-primary:hover {
+  box-shadow: 4px 4px 8px rgba(49, 130, 206, 0.4),
+    -3px -3px 6px var(--shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.neu-button-primary:active {
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Secondary button variant */
+.neu-button-secondary {
+  background: linear-gradient(145deg, #edf2f7, #d9e2ec);
+  color: #2d3748;
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-button-secondary:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.neu-button-secondary:active {
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Confirm button - Blue solid */
+.neu-button-confirm {
+  background: linear-gradient(145deg, #3a91de, #2a74b8);
+  color: white;
+  box-shadow: 5px 5px 10px rgba(49, 130, 206, 0.35),
+    -3px -3px 8px var(--shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.neu-button-confirm:hover {
+  box-shadow: 4px 4px 8px rgba(49, 130, 206, 0.4),
+    -3px -3px 6px var(--shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.neu-button-confirm:active {
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Cancel button - Neutral gray */
+.neu-button-cancel {
+  background: linear-gradient(145deg, #edf2f7, #d9e2ec);
+  color: #718096;
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-button-cancel:hover {
+  color: #2d3748;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.neu-button-cancel:active {
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Danger/Delete button - Soft red background */
+.neu-button-danger {
+  background: linear-gradient(145deg, #c53030, #9b2c2c);
+  color: white;
+  box-shadow: 5px 5px 10px rgba(197, 48, 48, 0.3),
+    -3px -3px 8px var(--shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.neu-button-danger:hover {
+  background: linear-gradient(145deg, #d63c3c, #a83333);
+  box-shadow: 4px 4px 8px rgba(197, 48, 48, 0.35),
+    -3px -3px 6px var(--shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.neu-button-danger:active {
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.25),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.08);
+}
+
+/* Danger button - Subtle variant */
+.neu-button-danger-subtle {
+  background: linear-gradient(145deg, #feb2b2, #fc8181);
+  color: #9b2c2c;
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-button-danger-subtle:hover {
+  background: linear-gradient(145deg, #fc8181, #f56565);
+  color: #742a2a;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.neu-button-danger-subtle:active {
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Icon button - circular */
+.neu-button-icon {
+  background: linear-gradient(145deg, #f0f5f9, #d1d9e6);
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-button-icon:hover {
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+}
+
+.neu-button-icon:active {
+  box-shadow: inset 2px 2px 4px var(--shadow-dark),
+    inset -2px -2px 4px var(--shadow-light);
+}
+
+/* Level 3: High-Depth - Deep diffused shadow for floating elements */
+.neu-elevated {
+  background: var(--neu-bg);
+  box-shadow: 0 12px 45px rgba(163, 177, 198, 0.3),
+    0 6px 15px rgba(163, 177, 198, 0.2), -6px -6px 15px var(--shadow-light);
+}
+
+.neu-sidebar {
+  background: var(--neu-bg);
+  box-shadow: 10px 0 35px rgba(163, 177, 198, 0.25),
+    5px 0 15px rgba(163, 177, 198, 0.15);
+}
+
+.neu-navbar {
+  background: var(--neu-bg);
+  box-shadow: 0 5px 25px rgba(163, 177, 198, 0.2),
+    0 3px 10px rgba(163, 177, 198, 0.12);
+}
+
+.neu-modal {
+  background: var(--neu-bg);
+  box-shadow: 0 25px 70px rgba(163, 177, 198, 0.35),
+    0 10px 30px rgba(163, 177, 198, 0.25), -10px -10px 25px var(--shadow-light);
+}
+
+/* Accordion active state with inner shadow */
+.neu-accordion-active {
+  background: var(--neu-bg);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Smooth transitions for accordion */
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+/* Icon wrapper */
+.neu-icon-wrap {
+  background: linear-gradient(145deg, #f0f5f9, #d1d9e6);
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+/* Toggle switch */
+.neu-toggle-track {
+  background: var(--neu-bg);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+    inset -3px -3px 6px var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+.neu-toggle-track-active {
+  background: linear-gradient(145deg, #3a91de, #2a74b8);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.15),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.neu-toggle-thumb {
+  background: linear-gradient(145deg, #f0f5f9, #d1d9e6);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+/* Select/Dropdown */
+.neu-select {
+  background: var(--neu-bg);
+  box-shadow: inset 3px 3px 7px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-select-dropdown {
+  background: var(--neu-bg);
+  box-shadow: 0 15px 40px rgba(163, 177, 198, 0.35),
+    0 5px 15px rgba(163, 177, 198, 0.2), -5px -5px 15px var(--shadow-light);
+}
+
+/* Date picker */
+.neu-datepicker {
+  background: var(--neu-bg);
+  box-shadow: inset 3px 3px 7px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neu-datepicker:focus {
+  box-shadow: inset 3px 3px 7px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light), 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+/* Notification dropdown styles */
+.neu-dropdown {
+  background: var(--neu-bg);
+  box-shadow: 0 20px 50px rgba(163, 177, 198, 0.4),
+    0 8px 20px rgba(163, 177, 198, 0.25), -8px -8px 20px var(--shadow-light);
+}
+
+/* Dropdown animation from icon origin */
+.neu-dropdown-animate {
+  animation: dropdownEnter 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: top right;
+}
+
+.neu-dropdown-animate-center {
+  animation: dropdownEnterCenter 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)
+    forwards;
+  transform-origin: top center;
+}
+
+@keyframes dropdownEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes dropdownEnterCenter {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mobile centered dropdown positioning */
+@media (max-width: 639px) {
+  .neu-dropdown-mobile-center {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    margin-right: 0 !important;
+  }
+
+  .neu-dropdown-mobile-center.neu-dropdown-animate-center {
+    animation: dropdownEnterMobile 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)
+      forwards;
+    transform-origin: top center;
+  }
+
+  @keyframes dropdownEnterMobile {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.85) translateY(-8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1) translateY(0);
+    }
+  }
+}
+
+.neu-notification-item {
+  transition: all 0.2s ease;
+}
+
+.neu-notification-item:hover {
+  background: rgba(49, 130, 206, 0.08);
+}
+
+.neu-notification-unread {
+  background: rgba(49, 130, 206, 0.05);
+  border-left: 3px solid var(--accent-primary);
+}
+
+@keyframes dropdownIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dropdownOut {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+@keyframes dropdownInDesktop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes dropdownOutDesktop {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-10px);
+  }
+}
+
+.animate-dropdown-in {
+  animation: dropdownInDesktop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: top right;
+}
+
+.animate-dropdown-out {
+  animation: dropdownOutDesktop 0.2s ease-out forwards;
+  transform-origin: top right;
+}
+
+/* Mobile centered animations override */
+@media (max-width: 639px) {
+  .animate-dropdown-in {
+    animation: dropdownIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transform-origin: center center;
+  }
+
+  .animate-dropdown-out {
+    animation: dropdownOut 0.2s ease-out forwards;
+    transform-origin: center center;
+  }
+}
+
+/* Backdrop blur for mobile modals */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.neu-card-level-1 {
+  background: var(--neu-bg);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
 }
