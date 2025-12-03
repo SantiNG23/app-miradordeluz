@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Edit, Trash2, Users, Home } from "lucide-react";
+import { Edit, Trash2, Users, Home, Maximize2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -60,12 +60,18 @@ export const CabanaCard: React.FC<CabanaCardProps> = ({
             </div>
           </div>
 
-          {/* Capacity */}
-          <div className="flex items-center gap-2 mb-4 text-[#718096]">
-            <Users className="w-4 h-4" />
-            <span className="text-sm font-medium">
-              Capacidad: {cabana.capacidad} personas
-            </span>
+          {/* Capacity and M2 */}
+          <div className="flex items-center gap-4 mb-4 text-[#718096]">
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              <span className="text-sm font-medium">
+                Capacidad: {cabana.capacidad} personas
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Maximize2 className="w-4 h-4" />
+              <span className="text-sm font-medium">{cabana.m2} m²</span>
+            </div>
           </div>
 
           {/* Características */}

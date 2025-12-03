@@ -45,6 +45,7 @@ export interface Cabana {
   id: string;
   nombre: string;
   capacidad: number;
+  m2: number;
   activa: boolean;
   caracteristicas: Caracteristica[];
   tenantId: string;
@@ -55,6 +56,7 @@ export interface Cabana {
 export interface CabanaFormData {
   nombre: string;
   capacidad: number;
+  m2: number;
   activa: boolean;
   caracteristicaIds: string[];
 }

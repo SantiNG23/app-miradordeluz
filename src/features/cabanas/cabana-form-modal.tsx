@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, AlertCircle } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +21,7 @@ interface CabanaFormModalProps {
   onSubmit: (data: {
     nombre: string;
     capacidad: number;
+    m2: number;
     activa: boolean;
     caracteristicaIds: string[];
   }) => void;
@@ -37,21 +38,107 @@ export const CabanaFormModal: React.FC<CabanaFormModalProps> = ({
   const [capacidad, setCapacidad] = useState(
     cabana?.capacidad.toString() || ""
   );
+  const [m2, setM2] = useState(cabana?.m2.toString() || "");
   const [activa, setActiva] = useState(cabana?.activa ?? true);
   const [selectedCaracteristicas, setSelectedCaracteristicas] = useState<
     string[]
   >(cabana?.caracteristicas.map((c) => c.id) || []);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [capacidadError, setCapacidadError] = useState("");
+  const [m2Error, setM2Error] = useState("");
+
+  // Validar capacidad
+  const handleCapacidadChange = (value: string) => {
+    // Permitir solo números
+    if (value === "" || /^\d+$/.test(value)) {
+      setCapacidad(value);
+      setCapacidadError("");
+
+      // Validar rango
+      if (value && parseInt(value) > 20) {
+        setCapacidadError("La capacidad máxima es 20 personas");
+      } else if (value && parseInt(value) < 1) {
+        setCapacidadError("La capacidad mínima es 1 persona");
+      }
+    } else {
+      setCapacidadError("Solo se permiten números");
+    }
+  };
+
+  // Validar m2
+  const handleM2Change = (value: string) => {
+    // Permitir solo números
+    if (value === "" || /^\d+$/.test(value)) {
+      setM2(value);
+      setM2Error("");
+
+      // Validar rango
+      if (value && parseInt(value) > 1000) {
+        setM2Error("La cabaña no puede tener más de 1000 m²");
+      } else if (value && parseInt(value) < 1) {
+        setM2Error("La cabaña debe tener al menos 1 m²");
+      }
+    } else {
+      setM2Error("Solo se permiten números");
+    }
+  };
+
+  // Detectar cambios cuando el modal se abre
+  useEffect(() => {
+    if (open && !cabana) {
+      // Nueva cabaña - no hay cambios iniciales
+      setHasChanges(false);
+    }
+  }, [open, cabana]);
+
+  // Monitorear cambios
+  useEffect(() => {
+    if (!cabana) {
+      // Para nuevas cabañas, hay cambios si hay algo escrito
+      setHasChanges(nombre.trim() !== "" || capacidad !== "" || m2 !== "");
+    } else {
+      // Para edición, hay cambios si los datos actuales difieren de los originales
+      const originalCaracteristicasIds = cabana.caracteristicas.map(
+        (c) => c.id
+      );
+      const caracteristicasChanged =
+        selectedCaracteristicas.length !== originalCaracteristicasIds.length ||
+        !selectedCaracteristicas.every((id) =>
+          originalCaracteristicasIds.includes(id)
+        );
+
+      setHasChanges(
+        nombre !== cabana.nombre ||
+          capacidad !== cabana.capacidad.toString() ||
+          m2 !== cabana.m2.toString() ||
+          activa !== cabana.activa ||
+          caracteristicasChanged
+      );
+    }
+  }, [nombre, capacidad, m2, activa, selectedCaracteristicas, cabana]);
+
+  const isFormValid =
+    nombre.trim() &&
+    capacidad &&
+    m2 &&
+    !capacidadError &&
+    !m2Error &&
+    parseInt(capacidad) >= 1 &&
+    parseInt(capacidad) <= 20 &&
+    parseInt(m2) >= 1 &&
+    parseInt(m2) <= 1000;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!nombre.trim() || !capacidad) {
+    if (!isFormValid) {
       return;
     }
 
     onSubmit({
       nombre: nombre.trim(),
       capacidad: parseInt(capacidad),
+      m2: parseInt(m2),
       activa,
       caracteristicaIds: selectedCaracteristicas,
     });
@@ -59,8 +146,11 @@ export const CabanaFormModal: React.FC<CabanaFormModalProps> = ({
     // Reset form
     setNombre("");
     setCapacidad("");
+    setM2("");
     setActiva(true);
     setSelectedCaracteristicas([]);
+    setCapacidadError("");
+    setM2Error("");
   };
 
   const toggleCaracteristica = (id: string) => {
@@ -94,14 +184,37 @@ export const CabanaFormModal: React.FC<CabanaFormModalProps> = ({
             <Label htmlFor="capacidad">Capacidad (personas)</Label>
             <Input
               id="capacidad"
-              type="number"
-              min="1"
-              max="20"
               placeholder="ej: 4"
               value={capacidad}
-              onChange={(e) => setCapacidad(e.target.value)}
+              onChange={(e) => handleCapacidadChange(e.target.value)}
               required
+              className={capacidadError ? "border-red-500" : ""}
             />
+            {capacidadError && (
+              <div className="flex items-center gap-2 mt-2 text-red-500 text-sm">
+                <AlertCircle className="w-4 h-4" />
+                {capacidadError}
+              </div>
+            )}
+          </div>
+
+          {/* Metros Cuadrados */}
+          <div>
+            <Label htmlFor="m2">Metros cuadrados (m²)</Label>
+            <Input
+              id="m2"
+              placeholder="ej: 65"
+              value={m2}
+              onChange={(e) => handleM2Change(e.target.value)}
+              required
+              className={m2Error ? "border-red-500" : ""}
+            />
+            {m2Error && (
+              <div className="flex items-center gap-2 mt-2 text-red-500 text-sm">
+                <AlertCircle className="w-4 h-4" />
+                {m2Error}
+              </div>
+            )}
           </div>
 
           {/* Estado Activa/Inactiva */}
@@ -168,7 +281,7 @@ export const CabanaFormModal: React.FC<CabanaFormModalProps> = ({
             <Button
               type="submit"
               variant="confirm"
-              disabled={!nombre.trim() || !capacidad}
+              disabled={!isFormValid || (cabana ? !hasChanges : false)}
             >
               {cabana ? "Guardar cambios" : "Crear cabaña"}
             </Button>
