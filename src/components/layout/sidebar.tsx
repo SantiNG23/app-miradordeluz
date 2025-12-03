@@ -180,7 +180,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="flex items-center gap-2.5">
             <div className="neu-icon-wrap w-9 h-9 rounded-xl flex items-center justify-center">
               <svg
-                className="w-4 h-4 text-[#3182CE]"
+                className="w-4 h-4 text-[#181F54]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -273,8 +273,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                           onClick={onClose}
                           className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm ${
                             isPathActive(subItem.path)
-                              ? "bg-[#3182CE]/10 text-[#3182CE] font-semibold"
-                              : "text-[#718096] hover:text-[#3182CE] hover:bg-[#3182CE]/5 font-medium"
+                              ? "bg-[#181F54]/10 text-[#181F54] font-semibold"
+                              : "text-[#718096] hover:text-[#181F54] hover:bg-[#181F54]/5 font-medium"
                           }`}
                         >
                           {subItem.icon}
@@ -293,7 +293,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="neu-card-level-1 rounded-2xl px-4 py-3.5 flex items-center gap-3">
             <div className="neu-icon-wrap w-10 h-10 rounded-xl flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-[#3182CE]"
+                className="w-5 h-5 text-[#181F54]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

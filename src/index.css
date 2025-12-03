@@ -11,20 +11,20 @@
   --card-foreground: #2d3748;
   --popover: #e0e5ec;
   --popover-foreground: #2d3748;
-  --primary: #3182ce;
+  --primary: #181f54;
   --primary-foreground: #ffffff;
   --secondary: #dfe4e8;
   --secondary-foreground: #2d3748;
   --muted: #dfe4e8;
   --muted-foreground: #718096;
-  --accent: #3182ce;
+  --accent: #181f54;
   --accent-foreground: #ffffff;
   --destructive: #e53e3e;
   --destructive-foreground: #ffffff;
   --border: #d1d5db;
   --input: #d1d5db;
-  --ring: #3182ce;
-  --chart-1: #3182ce;
+  --ring: #181f54;
+  --chart-1: #181f54;
   --chart-2: #38a169;
   --chart-3: #dd6b20;
   --chart-4: #8b5cf6;
@@ -32,12 +32,12 @@
   --radius: 1rem;
   --sidebar: #e0e5ec;
   --sidebar-foreground: #2d3748;
-  --sidebar-primary: #3182ce;
+  --sidebar-primary: #181f54;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #dfe4e8;
   --sidebar-accent-foreground: #2d3748;
   --sidebar-border: #d1d5db;
-  --sidebar-ring: #3182ce;
+  --sidebar-ring: #181f54;
 
   /* Refined 3-Tier Shadow System */
   --neu-bg: #e0e5ec;
@@ -52,14 +52,14 @@
   --text-subtle: #9ca3af;
 
   /* Updated accent colors per spec */
-  --accent-primary: #3182ce;
+  --accent-primary: #181f54;
   --accent-primary-light: rgba(49, 130, 206, 0.12);
 
   /* Updated status colors per spec */
   --status-confirmed: #38a169;
   --status-pending: #dd6b20;
   --status-cancelled: #e53e3e;
-  --status-checkin: #3182ce;
+  --status-checkin: #181f54;
   --status-checkout: #8b5cf6;
 }
 
@@ -281,8 +281,8 @@
 
 .neu-modal {
   background: var(--neu-bg);
-  box-shadow: 0 25px 70px rgba(163, 177, 198, 0.35),
-    0 10px 30px rgba(163, 177, 198, 0.25), -10px -10px 25px var(--shadow-light);
+  box-shadow: 0 25px 70px rgba(163, 177, 198, 0.15),
+    0 10px 30px rgba(163, 177, 198, 0.08), -10px -10px 25px var(--shadow-light);
 }
 
 /* Accordion active state with inner shadow */

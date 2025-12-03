@@ -26,7 +26,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
         <div className="text-center mb-8">
           <div className="neu-icon-wrap w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-10 h-10 text-[#3182CE]"
+              className="w-10 h-10 text-[#181F54]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -98,7 +98,7 @@ export default function LoginView({ onLogin }: LoginViewProps) {
           <div className="mt-6 text-center">
             <a
               href="#"
-              className="text-sm text-[#3182CE] font-medium hover:underline"
+              className="text-sm text-[#181F54] font-medium hover:underline"
             >
               ¿Olvidaste tu contraseña?
             </a>

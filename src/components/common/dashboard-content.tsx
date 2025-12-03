@@ -50,7 +50,7 @@ function ActivityItem({ guest, cabin, status, time }: ActivityItemProps) {
   const statusColors = {
     Pendiente: "bg-[#DD6B20]/15 text-[#DD6B20]",
     Confirmada: "bg-[#38A169]/15 text-[#38A169]",
-    "Check-in": "bg-[#3182CE]/15 text-[#3182CE]",
+    "Check-in": "bg-[#181F54]/15 text-[#181F54]",
     "Check-out": "bg-[#8b5cf6]/15 text-[#8b5cf6]",
   };
 
@@ -58,7 +58,7 @@ function ActivityItem({ guest, cabin, status, time }: ActivityItemProps) {
     <div className="neu-card-subtle rounded-xl p-5 flex items-center justify-between gap-4">
       <div className="flex items-center gap-4 min-w-0">
         <div className="neu-pressed w-11 h-11 rounded-xl flex items-center justify-center shrink-0">
-          <User className="w-5 h-5 text-[#3182CE]" />
+          <User className="w-5 h-5 text-[#181F54]" />
         </div>
         <div className="min-w-0">
           <p className="font-semibold text-[#2D3748] truncate">{guest}</p>
@@ -88,7 +88,7 @@ export default function DashboardContent() {
       title: "Ocupación Hoy",
       value: "80%",
       icon: <Percent className="w-6 h-6" />,
-      iconColor: "text-[#3182CE]",
+      iconColor: "text-[#181F54]",
     },
     {
       title: "Check-ins Pendientes",
@@ -154,18 +154,18 @@ export default function DashboardContent() {
       </div>
 
       {showAlert && (
-        <div className="neu-modal rounded-2xl p-6 border-l-4 border-[#3182CE]">
+        <div className="neu-modal rounded-2xl p-6 border-l-4 border-[#181F54]">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="neu-icon-wrap w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                <CalendarCheck className="w-6 h-6 text-[#3182CE]" />
+                <CalendarCheck className="w-6 h-6 text-[#181F54]" />
               </div>
               <div>
                 <h3 className="font-bold text-[#2D3748] text-lg">
                   Eventos de Hoy
                 </h3>
                 <p className="text-sm text-[#718096] font-medium mt-1">
-                  <span className="text-[#3182CE] font-semibold">
+                  <span className="text-[#181F54] font-semibold">
                     2 Check-ins
                   </span>
                   {" • "}

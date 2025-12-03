@@ -71,14 +71,12 @@ export const MOCK_CARACTERISTICAS: Caracteristica[] = [
   },
 ];
 
-/**
- * Datos mock de cabañas
- */
 export const MOCK_CABANAS: Cabana[] = [
   {
     id: "cab_001",
     nombre: "Cabaña Los Pinos",
     capacidad: 4,
+    m2: 65,
     activa: true,
     caracteristicas: [
       MOCK_CARACTERISTICAS[0], // Piscina
@@ -94,6 +92,7 @@ export const MOCK_CABANAS: Cabana[] = [
     id: "cab_002",
     nombre: "Cabaña El Roble",
     capacidad: 6,
+    m2: 85,
     activa: true,
     caracteristicas: [
       MOCK_CARACTERISTICAS[0], // Piscina
@@ -111,6 +110,7 @@ export const MOCK_CABANAS: Cabana[] = [
     id: "cab_003",
     nombre: "Cabaña La Cascada",
     capacidad: 2,
+    m2: 40,
     activa: true,
     caracteristicas: [
       MOCK_CARACTERISTICAS[1], // WiFi
@@ -125,6 +125,7 @@ export const MOCK_CABANAS: Cabana[] = [
     id: "cab_004",
     nombre: "Cabaña Vista al Lago",
     capacidad: 5,
+    m2: 75,
     activa: true,
     caracteristicas: [
       MOCK_CARACTERISTICAS[1], // WiFi
@@ -142,6 +143,7 @@ export const MOCK_CABANAS: Cabana[] = [
     id: "cab_005",
     nombre: "Cabaña El Refugio",
     capacidad: 3,
+    m2: 50,
     activa: false,
     caracteristicas: [
       MOCK_CARACTERISTICAS[1], // WiFi
