@@ -83,11 +83,30 @@ export const CabanaFormModal: React.FC<CabanaFormModalProps> = ({
     }
   };
 
-  // Detectar cambios cuando el modal se abre
+  // Sincronizar datos cuando se abre el modal o cambia la cabaña
   useEffect(() => {
-    if (open && !cabana) {
-      // Nueva cabaña - no hay cambios iniciales
-      setHasChanges(false);
+    if (open) {
+      if (cabana) {
+        // Modo edición - cargar datos de la cabaña
+        setNombre(cabana.nombre);
+        setCapacidad(cabana.capacidad.toString());
+        setM2(cabana.m2.toString());
+        setActiva(cabana.activa);
+        setSelectedCaracteristicas(cabana.caracteristicas.map((c) => c.id));
+        setHasChanges(false);
+        setCapacidadError("");
+        setM2Error("");
+      } else {
+        // Nueva cabaña - limpiar campos
+        setNombre("");
+        setCapacidad("");
+        setM2("");
+        setActiva(true);
+        setSelectedCaracteristicas([]);
+        setHasChanges(false);
+        setCapacidadError("");
+        setM2Error("");
+      }
     }
   }, [open, cabana]);
 
