@@ -8,7 +8,7 @@ const NavbarVisibilityController: FC = () => {
   useEffect(() => {
     // Obtener el Hero Principal
     const heroSection = document.getElementById('hero-section');
-    
+
     if (!heroSection) return;
 
     // Crear Intersection Observer

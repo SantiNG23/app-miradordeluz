@@ -8,7 +8,8 @@ body {
 /* Scroll suave para navegación con anclas */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Altura del navbar fijo */
+  scroll-padding-top: 80px;
+  /* Altura del navbar fijo */
 }
 
 /* Ajuste para mobile */

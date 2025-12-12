@@ -2,9 +2,9 @@ import { type FC } from 'react';
 
 // Icono de comillas
 const QuoteIcon: FC = () => (
-  <svg 
-    className="w-8 h-8 text-gray-200" 
-    fill="currentColor" 
+  <svg
+    className="w-8 h-8 text-gray-200"
+    fill="currentColor"
     viewBox="0 0 24 24"
   >
     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -54,35 +54,19 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
 
   // Función para renderizar el texto con palabras resaltadas
   const renderHighlightedText = () => {
-    if (highlighted.length === 0) {
-      return text;
-    }
-
-    let highlightedText = text;
-    
-    // Reemplazar cada palabra/frase destacada
-    highlighted.forEach((word) => {
-      const regex = new RegExp(`(${word})`, 'gi');
-      highlightedText = highlightedText.replace(
-        regex,
-        '<span class="text-orange-500 font-semibold">$1</span>'
-      );
-    });
-
-    return (
-      <span dangerouslySetInnerHTML={{ __html: highlightedText }} />
-    );
+    // Mostrar siempre texto plano sin resaltados
+    return <span>{text}</span>;
   };
 
   return (
     <div
       className={`
         bg-white rounded-3xl shadow-lg
-        p-5 md:p-6
-        w-full max-w-sm
-        h-[320px] md:h-[340px]
+        p-4 md:p-5
+        w-full max-w-xs
+        h-[240px] md:h-[260px]
         flex flex-col
-        hover:shadow-xl transition-shadow duration-300
+        hover:shadow-xl transition-shadow duration-200
         ${className}
       `}
     >
@@ -100,8 +84,8 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
       </div>
 
       {/* Texto del testimonio */}
-      <div className="mt-3 flex-grow overflow-hidden">
-        <p className="font-montserrat text-sm md:text-base font-medium text-[#4A4A4A] leading-relaxed line-clamp-4">
+      <div className="mt-2 flex-grow overflow-hidden">
+        <p className="font-montserrat text-xs md:text-sm font-medium text-[#4A4A4A] leading-relaxed line-clamp-4">
           {renderHighlightedText()}
         </p>
       </div>

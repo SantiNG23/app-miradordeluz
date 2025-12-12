@@ -76,10 +76,10 @@ const ScrollAnimations: FC = () => {
       // ============================================
       // 2. ANIMACIÓN: Ubicación → Hero Intermedio (Video)
       // ============================================
-      
+
       // El Hero Intermedio ya ocupa 100vh desde el inicio (h-screen)
       // No necesita animación de expansión
-      
+
       // Pin del Hero Intermedio cuando llega a la parte superior
       ScrollTrigger.create({
         trigger: heroIntermedio,
@@ -117,7 +117,7 @@ const ScrollAnimations: FC = () => {
       // ============================================
       // 3. ANIMACIÓN: Hero Intermedio → Cabañas (Reemplazo)
       // ============================================
-      
+
       // Fade out y blur del Hero Intermedio
       gsap.to(heroIntermedio, {
         opacity: 0,

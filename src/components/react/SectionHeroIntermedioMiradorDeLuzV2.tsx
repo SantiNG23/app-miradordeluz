@@ -25,6 +25,7 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasPlayed, setHasPlayed] = useState(false);
 
   // Mapear opacidad del overlay
   const overlayClasses = {
@@ -51,14 +52,23 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
               videoRef.current.play().catch(err => {
                 console.log('Error al reproducir video:', err);
               });
+              setHasPlayed(true);
             }
           } else {
-            setIsInView(false);
-            setIsExpanded(false);
+            // Solo pausar si el usuario scrollea hacia arriba (sale completamente de la vista)
+            // Verificamos si el video ya se reprodujo y si la sección está por encima del viewport
+            const rect = entry.boundingClientRect;
+            const isScrollingUp = rect.bottom < 0;
 
-            // Pausar video cuando la sección no esté visible
-            if (videoRef.current) {
-              videoRef.current.pause();
+            if (isScrollingUp && hasPlayed) {
+              setIsInView(false);
+              setIsExpanded(false);
+
+              // Pausar video solo cuando sale completamente hacia arriba
+              if (videoRef.current) {
+                videoRef.current.pause();
+              }
+              setHasPlayed(false);
             }
           }
         });
@@ -78,7 +88,7 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
         observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [hasPlayed]);
 
   // Efecto para ocultar/mostrar el navbar
   useEffect(() => {
@@ -114,19 +124,21 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
       className={`
         relative overflow-hidden mx-auto
         transition-all duration-1000 ease-out
-        ${isExpanded 
-          ? 'w-full rounded-none shadow-none' 
+        ${isExpanded
+          ? 'w-full rounded-none shadow-none'
           : 'h-[60vh] w-[95%] md:w-[85%] lg:w-[60%] rounded-2xl shadow-2xl'
         }
       `}
       style={{
         height: isExpanded ? maxHeight : undefined,
+        minHeight: isExpanded ? maxHeight : undefined,
       }}
     >
       {/* Video de fondo o Imagen de fondo */}
       {backgroundVideo ? (
         <div className="absolute inset-0">
           <video
+            id="hero-intermedio-video"
             ref={videoRef}
             className={`
               absolute inset-0 w-full h-full object-cover
@@ -140,12 +152,12 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
             preload="metadata"
           />
           {/* Overlay oscuro */}
-          <div 
+          <div
             className={`
               absolute inset-0 transition-opacity duration-1000
               ${overlayClasses[overlayOpacity]}
               ${isExpanded ? 'opacity-100' : 'opacity-80'}
-            `} 
+            `}
           />
         </div>
       ) : (
@@ -161,12 +173,12 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
           }}
         >
           {/* Overlay oscuro */}
-          <div 
+          <div
             className={`
               absolute inset-0 transition-opacity duration-1000
               ${overlayClasses[overlayOpacity]}
               ${isExpanded ? 'opacity-100' : 'opacity-80'}
-            `} 
+            `}
           />
         </div>
       )}
@@ -176,20 +188,20 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
         className={`
           absolute inset-0 flex flex-col items-center justify-center text-center px-4
           transition-all duration-1000 delay-200 ease-out
-          ${isExpanded 
-            ? 'opacity-100 translate-y-0' 
+          ${isExpanded
+            ? 'opacity-100 translate-y-0'
             : 'opacity-70 translate-y-4'
           }
         `}
       >
         {/* Etiqueta superior */}
         {subheading && (
-          <div 
+          <div
             className={`
               mb-4 md:mb-6
               transition-all duration-1000 delay-300 ease-out
-              ${isExpanded 
-                ? 'opacity-100 translate-y-0' 
+              ${isExpanded
+                ? 'opacity-100 translate-y-0'
                 : 'opacity-0 -translate-y-4'
               }
             `}
@@ -203,12 +215,12 @@ const SectionHeroIntermedioMiradorDeLuzV2: FC<SectionHeroIntermedioMiradorDeLuzV
         )}
 
         {/* Título principal */}
-        <h2 
+        <h2
           className={`
             font-montserrat text-[36px] md:text-[48px] lg:text-[64px] font-bold text-white leading-tight max-w-4xl px-4
             transition-all duration-1000 delay-400 ease-out
-            ${isExpanded 
-              ? 'opacity-100 translate-y-0 scale-100' 
+            ${isExpanded
+              ? 'opacity-100 translate-y-0 scale-100'
               : 'opacity-0 translate-y-8 scale-95'
             }
           `}

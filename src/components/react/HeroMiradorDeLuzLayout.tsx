@@ -239,7 +239,7 @@ const HeroMiradorDeLuzLayout: FC<HeroProps> = ({
       {/* MAIN CONTENT */}
       <main className="bg-[#f7f3ec]">
         {/* HERO CON VIDEO */}
-        <section className="relative h-[80vh] md:h-[82vh] w-full mt-[72px] md:mt-[80px]">
+        <section className="relative h-[50vh] md:h-[50vh] w-full mt-[50px] md:mt-[50px]">
           {/* Video de fondo */}
           <div className="absolute inset-0 overflow-hidden">
             <video

@@ -37,7 +37,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Excelente lugar para descansar. Las cabañas son muy cómodas y la atención es increíble.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=12',
-      highlighted: ['increíble'],
     },
     {
       id: '2',
@@ -46,7 +45,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Reservamos una cabaña para nuestra escapada de fin de semana. Paisaje increíble y atención excelente. Volveremos pronto!',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=25',
-      highlighted: ['increíble', 'excelente'],
     },
     {
       id: '3',
@@ -55,7 +53,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Hemos venido con un grupo de 30 amigos. Excelente todo. Muy recomendable para grupos grandes.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=33',
-      highlighted: ['Excelente', 'recomendable'],
     },
     {
       id: '4',
@@ -64,7 +61,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Ya tengo mi lugar para quedarme cuando visite Tafí. Hotel increíble... Excelente Atención, Servicio y Habitaciones Confortables.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=68',
-      highlighted: ['increíble', 'Excelente', 'Confortables'],
     },
     {
       id: '5',
@@ -73,7 +69,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Fuimos en familia y las cabañas son súper cómodas. Ideal para desconectar. La vista es hermosa!',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=45',
-      highlighted: ['súper cómodas', 'hermosa'],
     },
     {
       id: '6',
@@ -82,7 +77,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Excelente experiencia. Todo muy limpio y ordenado. El personal muy atento. Definitivamente volveremos.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=51',
-      highlighted: ['Excelente', 'Definitivamente'],
     },
     {
       id: '7',
@@ -91,7 +85,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Un lugar mágico en medio de la naturaleza. Las cabañas tienen todo lo necesario. Perfectas para una escapada romántica.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=47',
-      highlighted: ['mágico', 'Perfectas'],
     },
     {
       id: '8',
@@ -100,7 +93,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Instalaciones impecables y el entorno natural es espectacular. Ideal para quienes buscan tranquilidad y confort.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=58',
-      highlighted: ['impecables', 'espectacular'],
     },
     {
       id: '9',
@@ -109,7 +101,6 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'Celebramos nuestro aniversario aquí y fue memorable. Atención personalizada y detalles que hacen la diferencia.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=36',
-      highlighted: ['memorable', 'personalizada'],
     },
     {
       id: '10',
@@ -118,13 +109,12 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
       text: 'La mejor decisión para nuestras vacaciones. Precio justo, excelente ubicación y paisajes inolvidables.',
       rating: 5,
       avatarUrl: 'https://i.pravatar.cc/150?img=62',
-      highlighted: ['mejor decisión', 'inolvidables'],
     },
   ],
   mostrarBoton = true,
   textoBoton = 'Dejanos tu Opinión',
   onClickBoton,
-  autoPlayInterval = 2500,
+  autoPlayInterval = 1000,
   pauseOnHover = true,
 }) => {
   // Estados
@@ -142,7 +132,7 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
           if (entry.isIntersecting) {
             setTimeout(() => {
               setIsExpanded(true);
-            }, 100);
+            }, 80);
           }
         });
       },
@@ -173,34 +163,22 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
 
   // Navegación del carrusel
   const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex((prev) => Math.max(0, prev - 4));
   };
 
   const handleNext = () => {
-    const maxIndex = testimonios.length - 3;
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+    const maxIndex = Math.max(0, testimonios.length - 4);
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 4));
   };
 
   const isPrevDisabled = currentIndex === 0;
-  const isNextDisabled = currentIndex >= testimonios.length - 3;
+  const isNextDisabled = currentIndex >= testimonios.length - 4;
 
-  // Auto-play del carrusel
-  useEffect(() => {
-    if (pauseOnHover && isHovered) return;
-    if (testimonios.length <= 3) return;
-    if (!isExpanded) return;
+  // Cambiar el cálculo de totalPages para 4 items por página
+  const totalPages = Math.max(1, Math.ceil(testimonios.length / 4));
+  const currentPage = Math.min(totalPages, Math.floor(currentIndex / 4) + 1);
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev >= testimonios.length - 3) {
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, autoPlayInterval);
-
-    return () => clearInterval(interval);
-  }, [testimonios.length, autoPlayInterval, isHovered, pauseOnHover, isExpanded]);
+  // No auto-play: la navegación ahora es paginada (3 items por página)
 
   const handleMouseEnter = () => {
     if (pauseOnHover) setIsHovered(true);
@@ -210,52 +188,74 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
     if (pauseOnHover) setIsHovered(false);
   };
 
+  // Calcular rating promedio y paginación
+  const averageRating = testimonios.length
+    ? testimonios.reduce((s, t) => s + (t.rating || 0), 0) / testimonios.length
+    : 5;
+  const averageDisplay = (Math.round(averageRating * 10) / 10).toFixed(1);
+
   return (
     <section
       ref={sectionRef}
       className={`
         w-full bg-gradient-to-br from-stone-50 via-stone-100 to-stone-50
-        transition-all duration-1000 ease-out
-        ${isExpanded 
-          ? 'py-20 md:py-24 min-h-screen' 
-          : 'py-12 md:py-16'
+        transition-all duration-500 ease-out
+        ${isExpanded
+          ? 'py-16 md:py-10 min-h-screen'
+          : 'py-10 md:py-10'
         }
       `}
     >
       <div
         className={`
-          mx-auto transition-all duration-1000 ease-out
-          ${isExpanded 
-            ? 'max-w-7xl px-4 md:px-8 opacity-100 scale-100' 
-            : 'max-w-5xl px-8 md:px-16 opacity-70 scale-95'
+          mx-auto transition-all duration-500 ease-out
+          ${isExpanded
+            ? 'max-w-7xl px-4 md:px-8 opacity-100 scale-100'
+            : 'max-w-5xl px-8 md:px-16 opacity-80 scale-97'
           }
         `}
       >
-        {/* Título y subtítulo con animación */}
+        {/* Cabecera: título + rating grande */}
         <div className={`
-          text-center mb-12 md:mb-16
-          transition-all duration-1000 delay-200 ease-out
-          ${isExpanded 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 translate-y-8'
+          text-center mb-10 md:mb-14
+          transition-all duration-500 delay-100 ease-out
+          ${isExpanded
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-6'
           }
         `}>
-          <h2 className="font-montserrat text-[36px] md:text-[48px] lg:text-[56px] font-extrabold text-[#1E1E1E] mb-4">
+          <h2 className="font-montserrat text-[36px] md:text-[48px] lg:text-[56px] font-extrabold text-[#1E1E1E] mb-2">
             Experiencias de Nuestros Huéspedes
           </h2>
-          <p className="font-montserrat text-[16px] md:text-[18px] font-medium text-[#4A4A4A] leading-relaxed max-w-2xl mx-auto">
+          <p className="font-montserrat text-[14px] md:text-[16px] font-medium text-[#4A4A4A] leading-relaxed max-w-2xl mx-auto mb-6">
             Descubrí lo que dicen quienes ya vivieron la experiencia en nuestras cabañas
           </p>
+
+          <div className="flex items-center justify-center gap-6">
+            <div className="text-[56px] md:text-[72px] lg:text-[80px] font-extrabold text-[#0B1220] -tracking-tighter">
+              {averageDisplay}
+            </div>
+            <div className="flex flex-col items-start">
+              <div className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <svg key={i} className={`w-5 h-5 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-200'}`} fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <span className="text-sm text-[#6B6B6B] mt-1">{testimonios.length} opiniones</span>
+            </div>
+          </div>
         </div>
 
         {/* Carrusel de testimonios */}
         <div
           className={`
-            relative mb-10
-            transition-all duration-1000 delay-400 ease-out
-            ${isExpanded 
-              ? 'opacity-100 translate-y-0 blur-0' 
-              : 'opacity-0 translate-y-12 blur-sm'
+            relative mb-8
+            transition-all duration-500 delay-200 ease-out
+            ${isExpanded
+              ? 'opacity-100 translate-y-0 blur-0'
+              : 'opacity-0 translate-y-8 blur-sm'
             }
           `}
           onMouseEnter={handleMouseEnter}
@@ -263,91 +263,52 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
         >
           {/* Botones de navegación - Desktop */}
           <div className="hidden lg:block">
-            <button
-              onClick={handlePrev}
-              disabled={isPrevDisabled}
-              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10
-                        w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center
-                        transition-all duration-300
-                        ${
-                          isPrevDisabled
-                            ? 'opacity-30 cursor-not-allowed'
-                            : 'hover:bg-gray-50 hover:shadow-xl hover:scale-110'
-                        }`}
-              aria-label="Anterior"
-            >
-              <ChevronLeftIcon />
-            </button>
 
-            <button
-              onClick={handleNext}
-              disabled={isNextDisabled}
-              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10
-                        w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center
-                        transition-all duration-300
-                        ${
-                          isNextDisabled
-                            ? 'opacity-30 cursor-not-allowed'
-                            : 'hover:bg-gray-50 hover:shadow-xl hover:scale-110'
-                        }`}
-              aria-label="Siguiente"
-            >
-              <ChevronRightIcon />
-            </button>
           </div>
 
           {/* Contenedor del carrusel - Desktop */}
-          <div className="hidden lg:block overflow-hidden">
-            <div
-              ref={carouselRef}
-              className="flex gap-6 transition-transform duration-500 ease-in-out justify-center"
-              style={{
-                transform: `translateX(-${currentIndex * (100 / 3 + 2)}%)`,
-              }}
-            >
-              {testimonios.map((testimonio, index) => (
-                <div
-                  key={testimonio.id}
-                  className={`
-                    flex-shrink-0
-                    transition-all duration-500 ease-out
-                    ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-                  `}
-                  style={{ 
-                    width: 'calc(33.333% - 16px)',
-                    transitionDelay: isExpanded ? `${600 + index * 100}ms` : '0ms'
-                  }}
-                >
-                  <TestimonialCard
-                    text={testimonio.text}
-                    highlighted={testimonio.highlighted}
-                    name={testimonio.name}
-                    subtitle={testimonio.subtitle}
-                    avatarUrl={testimonio.avatarUrl}
-                    rating={testimonio.rating}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Grid responsive para Tablet */}
-          <div className="hidden md:grid lg:hidden md:grid-cols-2 gap-6 mb-10">
-            {testimonios.map((testimonio, index) => (
+          {/* Desktop: mostrar 3 cards de la página actual */}
+          <div className="hidden lg:grid grid-cols-4 gap-6">
+            {testimonios.slice(currentIndex, currentIndex + 4).map((testimonio, index) => (
               <div
                 key={testimonio.id}
                 className={`
-                  flex justify-center
-                  transition-all duration-500 ease-out
-                  ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                  transition-all duration-300 ease-out
+                  ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
                 `}
                 style={{
-                  transitionDelay: isExpanded ? `${600 + index * 150}ms` : '0ms'
+                  justifyItems: 'center',
+                  transitionDelay: isExpanded ? `${200 + index * 60}ms` : '0ms'
                 }}
               >
                 <TestimonialCard
                   text={testimonio.text}
-                  highlighted={testimonio.highlighted}
+                  name={testimonio.name}
+                  subtitle={testimonio.subtitle}
+                  avatarUrl={testimonio.avatarUrl}
+                  rating={testimonio.rating}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Grid responsive para Tablet */}
+          {/* Tablet: 2 por página (si hay) */}
+          <div className="hidden md:grid lg:hidden md:grid-cols-2 gap-4 mb-8">
+            {testimonios.slice(currentIndex, currentIndex + 2).map((testimonio, index) => (
+              <div
+                key={testimonio.id}
+                className={`
+                  flex justify-center
+                  transition-all duration-300 ease-out
+                  ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+                `}
+                style={{
+                  transitionDelay: isExpanded ? `${200 + index * 80}ms` : '0ms'
+                }}
+              >
+                <TestimonialCard
+                  text={testimonio.text}
                   name={testimonio.name}
                   subtitle={testimonio.subtitle}
                   avatarUrl={testimonio.avatarUrl}
@@ -358,23 +319,23 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
           </div>
 
           {/* Mobile: Scroll horizontal */}
-          <div className="md:hidden overflow-x-auto pb-4 mb-10 scrollbar-hide">
-            <div className="flex gap-4 px-4" style={{ minWidth: 'min-content' }}>
-              {testimonios.map((testimonio, index) => (
+          {/* Mobile: mostrar hasta 1-2 por página (reusar slice) */}
+          <div className="md:hidden overflow-x-auto pb-4 mb-8">
+            <div className="flex gap-3 px-3">
+              {testimonios.slice(currentIndex, currentIndex + 1).map((testimonio, index) => (
                 <div
                   key={testimonio.id}
                   className={`
                     flex-shrink-0
-                    transition-all duration-500 ease-out
-                    ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}
+                    transition-all duration-300 ease-out
+                    ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'}
                   `}
                   style={{
-                    transitionDelay: isExpanded ? `${600 + index * 150}ms` : '0ms'
+                    transitionDelay: isExpanded ? `${200 + index * 80}ms` : '0ms'
                   }}
                 >
                   <TestimonialCard
                     text={testimonio.text}
-                    highlighted={testimonio.highlighted}
                     name={testimonio.name}
                     subtitle={testimonio.subtitle}
                     avatarUrl={testimonio.avatarUrl}
@@ -386,29 +347,43 @@ const SectionTestimoniosMiradorDeLuzV2: FC<SectionTestimoniosMiradorDeLuzV2Props
           </div>
         </div>
 
-        {/* Botón "Dejanos tu Opinión" con animación */}
-        {mostrarBoton && (
-          <div 
-            className={`
-              flex justify-center mt-10
-              transition-all duration-1000 delay-700 ease-out
-              ${isExpanded 
-                ? 'opacity-100 translate-y-0 scale-100' 
-                : 'opacity-0 translate-y-8 scale-90'
-              }
-            `}
-          >
+        {/* Controles inferiores: flechas, página y CTA negro */}
+        <div className="flex items-center justify-between mt-6">
+          <div className="flex items-center gap-6">
             <button
-              onClick={handleClickBoton}
-              className="font-montserrat inline-flex items-center justify-center px-8 py-4 
-                       border-2 border-gray-900 rounded-lg text-base font-semibold 
-                       text-gray-900 bg-transparent hover:bg-gray-900 hover:text-white
-                       transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              onClick={handlePrev}
+              disabled={isPrevDisabled}
+              className={`w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center transition-all duration-200 ${isPrevDisabled ? 'opacity-30 cursor-not-allowed' : 'hover:shadow-md'}`}
+              aria-label="Anterior"
             >
-              {textoBoton}
+              <ChevronLeftIcon />
+            </button>
+
+            <div className="text-sm text-[#6B6B6B]">
+              Página {currentPage} de {totalPages}
+            </div>
+
+            <button
+              onClick={handleNext}
+              disabled={isNextDisabled}
+              className={`w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center transition-all duration-200 ${isNextDisabled ? 'opacity-30 cursor-not-allowed' : 'hover:shadow-md'}`}
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon />
             </button>
           </div>
-        )}
+
+          <div>
+            <button
+              onClick={handleClickBoton}
+              className="inline-flex items-center justify-center px-6 py-3 rounded-[18px] border-2 border-[#0B1220] bg-[#0B1220] text-white font-semibold shadow transition-all duration-200 hover:brightness-95"
+            >
+              Dejanos tu Opinión
+            </button>
+          </div>
+        </div>
+
+        {/* CTA removido: se elimina botón visible en la parte inferior */}
       </div>
     </section>
   );

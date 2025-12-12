@@ -241,9 +241,9 @@ const HeroMiradorDeLuz: FC<HeroMiradorDeLuzProps> = ({
               {titulo}
             </h2>
 
-            {/* Descripción */}
+            {/* Descripción (sin la frase "y la luz del amanecer") */}
             <p className="font-montserrat text-white/90 text-[18px] md:text-[20px] font-medium max-w-2xl mx-auto">
-              {descripcion}
+              {descripcion.replace(' y la luz del amanecer', '')}
             </p>
           </div>
 
@@ -260,6 +260,19 @@ const HeroMiradorDeLuz: FC<HeroMiradorDeLuzProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Elemento de ubicación centrado al fondo del hero */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="inline-flex items-center gap-3 bg-transparent border border-white/20 text-white px-6 py-3 rounded-full shadow-lg backdrop-blur-sm">
+          <span className="w-5 h-5 text-amber-500" aria-hidden>
+            <LocationIcon />
+          </span>
+          <span className="font-montserrat font-semibold text-sm">
+            Villa Santa Cruz del Lago, Córdoba, Argentina
+          </span>
+        </div>
+      </div>
+
     </section>
   );
 };

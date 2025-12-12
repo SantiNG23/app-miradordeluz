@@ -138,7 +138,7 @@ const SectionCabanasMiradorDeLuzV3: FC<SectionCabanasMiradorDeLuzV3Props> = ({
   };
 
   return (
-    <section className="w-full bg-stone-50 py-20">
+    <section className="w-full bg-stone-50 py-2">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Header con título y descripción */}
         <div className="text-center mb-16 md:mb-20">

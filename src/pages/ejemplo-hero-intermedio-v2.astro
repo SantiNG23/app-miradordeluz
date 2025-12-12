@@ -32,13 +32,15 @@ import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
       - Hero con video (80-85vh)
       - El resto del viewport muestra un preview de la siguiente sección
     -->
-    <HeroMiradorDeLuzLayout
-      client:load
-      videoUrl="/videos/VideoCarlosPaz.mp4"
-      subtitle="CERCA DE TODO"
-      titleLine1="Urbano & Confortable."
-      titleLine2="En el Corazón de la Ciudad."
-    />
+    <div class="page-50vh">
+      <HeroMiradorDeLuzLayout
+        client:load
+        videoUrl="/videos/VideoCarlosPaz.mp4"
+        subtitle="CERCA DE TODO"
+        titleLine1="Urbano & Confortable."
+        titleLine2="En el Corazón de la Ciudad."
+      />
+    </div>
 
     <!-- 
       SECCIONES SIGUIENTES
@@ -68,6 +70,11 @@ import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
       body {
         font-family: "Montserrat", sans-serif;
         background-color: #f7f3ec;
+      }
+
+      /* Limitar la altura de la página de ejemplo */
+      .page-50vh {
+        height: 50%;
       }
 
       /* Smooth scroll */

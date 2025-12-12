@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { FC } from 'react';
+import TermsModal from './TermsModal';
+import useIsMouseInTopEighth from '../../hooks/useIsMouseInTopEighth';
 
 // Tipos para los estilos de sección
 type SeccionEstilo = {
@@ -66,13 +68,13 @@ const estilosPorSeccion: Record<string, SeccionEstilo> = {
 // Iconos SVG
 const InstagramIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
   </svg>
 );
 
 const WhatsAppIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
   </svg>
 );
 
@@ -91,12 +93,31 @@ const MenuIcon = () => (
 
 interface NavbarMiradorDeLuzProps {
   transparente?: boolean;
+  /** Si true, el navbar está en la página Hero principal y siempre visible */
+  isHeroPage?: boolean;
 }
 
-const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false }) => {
+const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({
+  transparente = false,
+  isHeroPage = false,
+}) => {
   const [seccionActual, setSeccionActual] = useState('hero-section');
   const [scrollY, setScrollY] = useState(0);
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [mostrarTerminos, setMostrarTerminos] = useState(false);
+  const [mouseOverNavbar, setMouseOverNavbar] = useState(false);
+
+  // Determinar si estamos en la sección Hero (por sección, no por página)
+  const isInHeroSection = seccionActual === 'hero-section';
+
+  // Inicializar shouldShowNavbar basado en si está en sección Hero o es página Hero
+  const [shouldShowNavbar, setShouldShowNavbar] = useState(isHeroPage || isInHeroSection);
+
+  // Usar el custom hook cuando NO está en sección Hero (ignora isHeroPage)
+  const isMouseInTopEighth = useIsMouseInTopEighth(!isInHeroSection);
+
+  // Ref para mantener el timeout entre renders
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -123,7 +144,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
           const rect = elemento.getBoundingClientRect();
           // Distancia desde el top del navbar (80px) al top de la sección
           const distancia = Math.abs(rect.top - 80);
-          
+
           // Si la sección está visible y es la más cercana al navbar
           if (rect.top < window.innerHeight && rect.bottom > 80) {
             if (distancia < distanciaMasCorta) {
@@ -146,6 +167,59 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
     };
   }, []);
 
+  // useEffect para manejar la visibilidad del navbar basado en mouse y hover
+  useEffect(() => {
+    console.log('[Navbar] useEffect visibility ejecutado:', {
+      isHeroPage,
+      seccionActual,
+      isInHeroSection,
+      isMouseInTopEighth,
+      mouseOverNavbar,
+    });
+
+    // Si está en la sección hero-section, siempre visible
+    if (isInHeroSection) {
+      console.log('[Navbar] ✅ En sección Hero (hero-section) - navbar siempre visible');
+      setShouldShowNavbar(true);
+      return;
+    }
+
+    // Si es una página de ejemplo (isHeroPage=false sin secciones), también siempre visible
+    if (isHeroPage && seccionActual === 'hero-section') {
+      console.log('[Navbar] ✅ Página Hero simple - navbar siempre visible');
+      setShouldShowNavbar(true);
+      return;
+    }
+
+    // Si el mouse está en el top o sobre el navbar, mostrar
+    if (isMouseInTopEighth || mouseOverNavbar) {
+      console.log('[Navbar] Mouse detectado - mostrando navbar');
+      setShouldShowNavbar(true);
+      // Limpiar timeout pendiente si existe
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
+    } else {
+      // Ocultar después de 1 segundo si no está cerca del top ni sobre el navbar
+      console.log('[Navbar] Mouse fuera - programando ocultación en 1 segundo');
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+      hideTimeoutRef.current = setTimeout(() => {
+        console.log('[Navbar] ⏱️  Timeout ejecutado - ocultando navbar');
+        setShouldShowNavbar(false);
+      }, 1000);
+    }
+
+    return () => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
+    };
+  }, [isHeroPage, isInHeroSection, isMouseInTopEighth, mouseOverNavbar, seccionActual]);
+
   const toggleMenu = () => {
     setMenuAbierto(!menuAbierto);
   };
@@ -154,37 +228,80 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
     setMenuAbierto(false);
   };
 
+  const abrirTerminos = () => {
+    // cerrar drawer y abrir modal de términos
+    setMenuAbierto(false);
+    setMostrarTerminos(true);
+  };
+
+  const cerrarTerminos = () => {
+    setMostrarTerminos(false);
+  };
+
   // Prevenir scroll del body cuando el menú está abierto
+  const previousOverflowRef = useRef<string | null>(null);
   useEffect(() => {
+    // Guardar el overflow previo y aplicar 'hidden' cuando se abra el menú.
     if (menuAbierto) {
+      previousOverflowRef.current = document.body.style.overflow ?? '';
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      // Restaurar solo si habíamos guardado un valor previo.
+      if (previousOverflowRef.current !== null) {
+        document.body.style.overflow = previousOverflowRef.current;
+        previousOverflowRef.current = null;
+      } else {
+        document.body.style.overflow = '';
+      }
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      // Al desmontar, restaurar el overflow previo si existe.
+      if (previousOverflowRef.current !== null) {
+        document.body.style.overflow = previousOverflowRef.current;
+        previousOverflowRef.current = null;
+      } else {
+        document.body.style.overflow = '';
+      }
     };
   }, [menuAbierto]);
 
   // Obtener estilos de la sección actual
   const estiloActual = estilosPorSeccion[seccionActual] || estilosPorSeccion.default;
-  
-  // Si está en hero y es transparente, usar transparente al inicio
-  const backgroundClass = transparente && seccionActual === 'hero-section' && scrollY < 50
-    ? 'bg-transparent'
-    : estiloActual.background;
+
+  // Si está en sección Hero o es página Hero, usar transparente; si no, usar el estilo de la sección
+  const backgroundClass = (isHeroPage || isInHeroSection) ? 'bg-transparent' : estiloActual.background;
+
+  // Aplicar clase de ocultación si no debe mostrar
+  const navClass = `fixed top-0 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-4 transition-all duration-500 ${backgroundClass} ${!shouldShowNavbar
+    ? 'opacity-0 pointer-events-none transform -translate-y-full'
+    : 'opacity-100 pointer-events-auto transform translate-y-0'
+    }`;
+
+  const handleMouseEnterNav = () => {
+    if (!isHeroPage) {
+      setMouseOverNavbar(true);
+    }
+  };
+
+  const handleMouseLeaveNav = () => {
+    if (!isHeroPage) {
+      setMouseOverNavbar(false);
+    }
+  };
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-4 transition-all duration-500 ${backgroundClass}`}
+      <nav
+        className={navClass}
+        onMouseEnter={handleMouseEnterNav}
+        onMouseLeave={handleMouseLeaveNav}
       >
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           {/* Logo / Nombre */}
           <div className="flex items-center">
-            <a 
-              href="/" 
+            <a
+              href="/"
               className={`font-montserrat text-xl md:text-2xl font-bold ${estiloActual.logoColor} tracking-wide ${estiloActual.hoverColor} transition-colors`}
             >
               🏔️ Mirador de Luz
@@ -193,14 +310,14 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
 
           {/* Desktop/Mobile Navigation - Siempre igual */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Botón Reservas */}
+            {/* Botón Reservar (redirecciona a sección Nuestras Cabañas) */}
             <a
-              href="/reservas"
+              href="/#cabanas"
               className={`font-montserrat bg-gradient-to-r ${estiloActual.buttonGradient} text-white 
                        px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-semibold uppercase tracking-wide text-xs md:text-sm
                        transform hover:scale-105 transition-all shadow-lg`}
             >
-              Reservas
+              Reservar
             </a>
 
             {/* Iconos sociales (desktop) */}
@@ -238,7 +355,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
             </div>
 
             {/* Menú Hamburguesa */}
-            <button 
+            <button
               onClick={toggleMenu}
               className={`${estiloActual.textColor} ${estiloActual.hoverColor} transition-colors`}
               aria-label="Abrir menú"
@@ -251,17 +368,16 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
 
       {/* Overlay oscuro */}
       {menuAbierto && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-[60] transition-opacity duration-300"
           onClick={cerrarMenu}
         />
       )}
 
       {/* Menú lateral (Drawer) */}
-      <div 
-        className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out ${
-          menuAbierto ? 'translate-x-0' : 'translate-x-full'
-        }`}
+      <div
+        className={`fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out ${menuAbierto ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <div className="flex flex-col h-full">
           {/* Header del menú con logo y botón cerrar */}
@@ -269,7 +385,7 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
             <div className="flex items-center justify-center flex-1">
               <span className="font-montserrat text-xl font-bold text-gray-900">🏔️ Mirador de Luz</span>
             </div>
-            <button 
+            <button
               onClick={cerrarMenu}
               className="text-gray-500 hover:text-gray-700 transition-colors"
               aria-label="Cerrar menú"
@@ -284,8 +400,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
           <nav className="flex-1 overflow-y-auto py-6 px-4">
             <ul className="space-y-4">
               <li>
-                <a 
-                  href="/" 
+                <a
+                  href="/"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-semibold text-gray-900 hover:text-amber-600 transition-colors block"
                 >
@@ -293,8 +409,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 </a>
               </li>
               <li>
-                <a 
-                  href="#cabanas" 
+                <a
+                  href="#cabanas"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-semibold text-gray-900 hover:text-amber-600 transition-colors flex items-center justify-between"
                 >
@@ -305,8 +421,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 </a>
               </li>
               <li>
-                <a 
-                  href="#servicios" 
+                <a
+                  href="#servicios"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
@@ -314,8 +430,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 </a>
               </li>
               <li>
-                <a 
-                  href="#galeria" 
+                <a
+                  href="/galeria"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
@@ -323,8 +439,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 </a>
               </li>
               <li>
-                <a 
-                  href="#testimonios" 
+                <a
+                  href="#testimonios"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
@@ -332,8 +448,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 </a>
               </li>
               <li>
-                <a 
-                  href="#ubicacion" 
+                <a
+                  href="#ubicacion"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
@@ -341,13 +457,22 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
                 </a>
               </li>
               <li>
-                <a 
-                  href="/contacto" 
+                <a
+                  href="/contacto"
                   onClick={cerrarMenu}
                   className="font-montserrat text-lg font-medium text-gray-600 hover:text-amber-600 transition-colors block"
                 >
                   CONTACTO
                 </a>
+              </li>
+              <li>
+                <button
+                  onClick={() => { abrirTerminos(); }}
+                  className="font-montserrat text-lg text-left w-full font-medium text-gray-600 hover:text-amber-600 transition-colors block"
+                  aria-haspopup="dialog"
+                >
+                  TÉRMINOS Y CONDICIONES
+                </button>
               </li>
             </ul>
           </nav>
@@ -361,6 +486,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({ transparente = false 
           </div>
         </div>
       </div>
+      {/* Modal de términos */}
+      <TermsModal open={mostrarTerminos} onClose={cerrarTerminos} />
     </>
   );
 };

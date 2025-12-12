@@ -1,43 +1,124 @@
-import { type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode, useState } from 'react';
+import { FiWifi, FiCoffee, FiTruck, FiCheck, FiClock, FiEye, FiLayers, FiPlus, FiTv, FiWind, FiDivide, FiAlertCircle, FiBell, FiAlertTriangle } from "react-icons/fi";
+import { GiBarbecue, GiFlame, GiPineTree, GiBed, GiCooler } from "react-icons/gi";
+import { MdOutlinePool, MdGarage, MdEmergency, MdLightMode } from "react-icons/md";
+import { FaUtensils, FaFireExtinguisher, FaBed } from "react-icons/fa6";
+import { PiOvenDuotone, PiFanDuotone } from "react-icons/pi";
+import { TbAirConditioning } from "react-icons/tb";
 
-// Iconos de react-icons (puedes instalar con: npm install react-icons)
-// Por ahora usaré SVGs inline simples
-
+// Iconos base (monocromo)
 const WifiIcon: FC = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-  </svg>
+  <FiWifi className="w-6 h-6" aria-hidden />
 );
 
 const CoffeeIcon: FC = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h16a2 2 0 012 2v10a2 2 0 01-2 2H3a2 2 0 01-2-2V5a2 2 0 012-2zm16 0v10m-8-5h.01M7 10h.01" />
-  </svg>
+  <FiCoffee className="w-6 h-6" aria-hidden />
 );
 
 const CarIcon: FC = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1-1V4a1 1 0 011-1h2a1 1 0 011 1v3m0 0h4l2 5m-6-5v9a1 1 0 001 1h2a1 1 0 001-1v-9" />
-  </svg>
+  <MdGarage className="w-6 h-6" aria-hidden />
 );
 
-const CleanIcon: FC = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-  </svg>
+const BedIcon: FC = () => (
+  <FaBed className="w-6 h-6" aria-hidden />
 );
 
-const FireIcon: FC = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-  </svg>
+const AirConditioningIcon: FC = () => (
+  <TbAirConditioning className="w-6 h-6" aria-hidden />
 );
 
 const ClockIcon: FC = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
+  <FiClock className="w-6 h-6" aria-hidden />
+);
+
+// Icons representativos para instalaciones (monocromo: stroke=currentColor)
+const PoolIcon: FC = () => (
+  <MdOutlinePool className="w-8 h-8" aria-hidden />
+);
+
+const ViewIcon: FC = () => (
+  <FiEye className="w-8 h-8" aria-hidden />
+);
+
+const GrillIcon: FC = () => (
+  <GiBarbecue className="w-8 h-8" aria-hidden />
+);
+
+const DeckIcon: FC = () => (
+  <FiLayers className="w-8 h-8" aria-hidden />
+);
+
+const PanoramaIcon: FC = () => (
+  <FiLayers className="w-8 h-8" aria-hidden />
+);
+
+const TreeIcon: FC = () => (
+  <GiPineTree className="w-8 h-8" aria-hidden />
+);
+
+const PlusIcon: FC = () => (
+  <FiPlus className="w-6 h-6" aria-hidden />
+);
+
+// Icons adicionales solicitados (monocromo)
+const TVIcon: FC = () => (
+  <FiTv className="w-6 h-6" aria-hidden />
+);
+
+const ACIcon: FC = () => (
+  <FiWind className="w-6 h-6" aria-hidden />
+);
+
+const FanIcon: FC = () => (
+  <PiFanDuotone className="w-6 h-6" aria-hidden />
+);
+
+const StoveIcon: FC = () => (
+  <FaUtensils className="w-6 h-6" aria-hidden />
+);
+
+const FridgeIcon: FC = () => (
+  <GiCooler className="w-6 h-6" aria-hidden />
+);
+
+const MicrowaveIcon: FC = () => (
+  <PiOvenDuotone className="w-6 h-6" aria-hidden />
+);
+
+const CleaningIcon: FC = () => (
+  <FaBed className="w-6 h-6" aria-hidden />
+);
+
+const BeddingIcon: FC = () => (
+  <GiBed className="w-6 h-6" aria-hidden />
+);
+
+const TowelsIcon: FC = () => (
+  <FiLayers className="w-6 h-6" aria-hidden />
+);
+
+const BreakfastIcon: FC = () => (
+  <FiCoffee className="w-6 h-6" aria-hidden />
+);
+
+const FireExtIcon: FC = () => (
+  <FaFireExtinguisher className="w-6 h-6" aria-hidden />
+);
+
+const EmergencyLightIcon: FC = () => (
+  <MdLightMode className="w-6 h-6" aria-hidden />
+);
+
+const MedicalIcon: FC = () => (
+  <MdEmergency className="w-6 h-6" aria-hidden />
+);
+
+const DifferentialIcon: FC = () => (
+  <FiDivide className="w-6 h-6" aria-hidden />
+);
+
+const AlarmIcon: FC = () => (
+  <FiBell className="w-6 h-6" aria-hidden />
 );
 
 // Tipos
@@ -70,42 +151,42 @@ const SectionServiciosInstalacionesMiradorDeLuz: FC<SectionServiciosInstalacione
     {
       id: '1',
       icon: <CoffeeIcon />,
-      titulo: 'Desayuno casero incluido',
+      titulo: 'Desayuno incluido.',
       descripcion: 'Comenzá el día con productos regionales y caseros',
       colorAccent: 'amber',
     },
     {
       id: '2',
       icon: <WifiIcon />,
-      titulo: 'WiFi de alta velocidad',
+      titulo: 'WiFi',
       descripcion: 'Conexión gratuita en todas las cabañas y espacios comunes',
       colorAccent: 'green',
     },
     {
       id: '3',
       icon: <CarIcon />,
-      titulo: 'Estacionamiento privado',
+      titulo: 'Estacionamiento.',
       descripcion: 'Espacio seguro dentro del predio para tu vehículo',
       colorAccent: 'green',
     },
     {
       id: '4',
-      icon: <CleanIcon />,
-      titulo: 'Ropa blanca y limpieza',
+      icon: <BedIcon />,
+      titulo: 'Ropa blanca.',
       descripcion: 'Toallas, sábanas y servicio de limpieza incluidos',
       colorAccent: 'amber',
     },
     {
       id: '5',
-      icon: <FireIcon />,
-      titulo: 'Calefacción y A/C',
+      icon: <AirConditioningIcon />,
+      titulo: 'A/C',
       descripcion: 'Climatización completa para tu confort todo el año',
       colorAccent: 'orange',
     },
     {
       id: '6',
       icon: <ClockIcon />,
-      titulo: 'Check-in flexible',
+      titulo: 'Check in flexible',
       descripcion: 'Horarios adaptados según disponibilidad',
       colorAccent: 'green',
     },
@@ -143,15 +224,16 @@ const SectionServiciosInstalacionesMiradorDeLuz: FC<SectionServiciosInstalacione
     'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800',
   ],
   mostrarCTA = true,
-  textoCTA = 'Ver más detalles',
+  textoCTA = 'Ver fotos',
   onClickCTA,
 }) => {
   // Función para obtener color de acento
   const getAccentColor = (color?: 'green' | 'amber' | 'orange') => {
+    // Usar tonos grises neutros en vez de acentos de color
     const colors = {
-      green: 'bg-green-50 text-green-600',
-      amber: 'bg-amber-50 text-amber-600',
-      orange: 'bg-orange-50 text-orange-600',
+      green: 'bg-stone-100 text-stone-700',
+      amber: 'bg-stone-100 text-stone-700',
+      orange: 'bg-stone-100 text-stone-700',
     };
     return colors[color || 'green'];
   };
@@ -160,12 +242,18 @@ const SectionServiciosInstalacionesMiradorDeLuz: FC<SectionServiciosInstalacione
     if (onClickCTA) {
       onClickCTA();
     } else {
-      console.log('Ver más detalles');
+      // Redirigir a la página de galería
+      window.location.href = '/galeria';
     }
   };
 
+  // Estado del modal "Ver más"
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => setIsModalOpen(false);
+
   return (
-    <section className="bg-stone-50 py-16 md:py-20">
+    <section className="bg-stone-50 py-16 md:py-10">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Encabezado de la sección */}
         <div className="text-center mb-12 md:mb-16">
@@ -189,121 +277,44 @@ const SectionServiciosInstalacionesMiradorDeLuz: FC<SectionServiciosInstalacione
           </p>
         </div>
 
-        {/* Bloque de Servicios */}
+        {/* Bloque de Servicios (selección con íconos y link a modal) */}
         <div className="mb-16 md:mb-20">
           {/* Título del bloque */}
           <div className="mb-6">
             <h3 className="font-montserrat text-[28px] md:text-[36px] font-bold text-[#1E1E1E] mb-2">
               Servicios
             </h3>
-            <p className="font-montserrat text-[16px] font-medium text-[#4A4A4A]">
-              Todo incluido para que solo te preocupes por disfrutar
-            </p>
           </div>
 
-          {/* Grid de servicios */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {servicios.map((servicio) => (
-              <div
-                key={servicio.id}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 flex gap-4 items-start"
-              >
-                {/* Ícono */}
+          {/* Fila única de iconos representativos (sin wrap) — aumenté tamaño y separación pero sin romper a 2 líneas */}
+          <div className="flex items-center justify-center gap-6 md:gap-8 py-6 flex-nowrap overflow-x-auto px-2">
+            {servicios.slice(0, 6).map((servicio) => (
+              <div key={servicio.id} className="flex flex-col items-center gap-3 w-32 md:w-36 text-center flex-shrink-0">
                 <div
-                  className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${getAccentColor(
+                  className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center ${getAccentColor(
                     servicio.colorAccent
                   )}`}
                 >
-                  {servicio.icon || <CleanIcon />}
+                  {servicio.icon || <BedIcon />}
                 </div>
-
-                {/* Contenido */}
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-montserrat font-semibold text-[#1E1E1E] text-base mb-1">
-                    {servicio.titulo}
-                  </h4>
-                  <p className="font-montserrat text-sm font-medium text-[#4A4A4A] leading-relaxed">
-                    {servicio.descripcion}
-                  </p>
+                <div className="font-montserrat text-sm md:text-base font-medium text-[#1E1E1E] truncate whitespace-nowrap max-w-[8rem] md:max-w-[9rem]">
+                  {servicio.titulo}
                 </div>
               </div>
             ))}
-          </div>
-        </div>
 
-        {/* Bloque de Instalaciones Externas */}
-        <div>
-          {/* Título del bloque */}
-          <div className="mb-8">
-            <h3 className="font-montserrat text-[28px] md:text-[36px] font-bold text-[#1E1E1E] mb-2">
-              Instalaciones Externas
-            </h3>
-            <p className="font-montserrat text-[16px] font-medium text-[#4A4A4A]">
-              Disfrutá del entorno natural y los espacios pensados para compartir
-            </p>
-          </div>
-
-          {/* Layout: Texto + Imágenes */}
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-8 items-start">
-            {/* Columna izquierda: Lista de instalaciones */}
-            <div className="bg-white rounded-2xl shadow-md p-6 md:p-8">
-              <ul className="space-y-4">
-                {instalaciones.map((instalacion) => (
-                  <li key={instalacion.id} className="flex items-start gap-3">
-                    {/* Bullet decorativo */}
-                    <span className="mt-2 h-2 w-2 rounded-full bg-green-500 flex-shrink-0" />
-
-                    {/* Contenido */}
-                    <div className="flex-1">
-                      <h4 className="font-montserrat font-semibold text-[#1E1E1E] text-base mb-1">
-                        {instalacion.titulo}
-                      </h4>
-                      {instalacion.descripcion && (
-                        <p className="font-montserrat text-sm font-medium text-[#4A4A4A]">
-                          {instalacion.descripcion}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Columna derecha: Collage de imágenes */}
-            <div className="grid grid-cols-2 gap-4">
-              {/* Imagen grande (ocupa 2 columnas) */}
-              {imagenesInstalaciones[0] && (
-                <div className="col-span-2 h-56 md:h-64 rounded-3xl overflow-hidden shadow-lg">
-                  <img
-                    src={imagenesInstalaciones[0]}
-                    alt="Instalaciones Mirador de Luz"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              )}
-
-              {/* Imagen pequeña 1 */}
-              {imagenesInstalaciones[1] && (
-                <div className="h-40 md:h-48 rounded-3xl overflow-hidden shadow-lg">
-                  <img
-                    src={imagenesInstalaciones[1]}
-                    alt="Espacios verdes"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              )}
-
-              {/* Imagen pequeña 2 */}
-              {imagenesInstalaciones[2] && (
-                <div className="h-40 md:h-48 rounded-3xl overflow-hidden shadow-lg">
-                  <img
-                    src={imagenesInstalaciones[2]}
-                    alt="Quincho y fogón"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              )}
-            </div>
+            {/* Ítem '+' como séptimo elemento que abre el modal */}
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              aria-label="Mostrar todos"
+              className="flex flex-col items-center gap-3 w-32 md:w-36 text-center flex-shrink-0"
+            >
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-stone-100 text-stone-700">
+                <PlusIcon />
+              </div>
+              <div className="font-montserrat text-sm md:text-base font-medium text-[#1E1E1E]">Más</div>
+            </button>
           </div>
         </div>
 
@@ -311,14 +322,147 @@ const SectionServiciosInstalacionesMiradorDeLuz: FC<SectionServiciosInstalacione
         {mostrarCTA && (
           <div className="text-center mt-12 md:mt-16">
             <p className="font-montserrat text-[16px] font-medium text-[#4A4A4A] mb-4">
-              ¿Querés saber más sobre nuestras cabañas y servicios?
+              ¿Querés saber más sobre nuestras cabañas?
             </p>
             <button
               onClick={handleClickCTA}
+              aria-haspopup="dialog"
               className="font-montserrat inline-flex items-center px-8 py-3 rounded-full border-2 border-gray-800 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl"
             >
               {textoCTA}
             </button>
+          </div>
+        )}
+        {/* Modal "Ver más" - lista completa de servicios e instalaciones */}
+        {isModalOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-servicios-title"
+          >
+            {/* Overlay */}
+            <div
+              className="fixed inset-0 bg-black bg-opacity-40"
+              onClick={closeModal}
+              aria-hidden="true"
+            />
+
+            {/* Dialogo */}
+            <div className="relative z-10 w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden">
+              <div className="flex items-center justify-between p-6 border-b">
+                <h3 id="modal-servicios-title" className="font-montserrat text-xl font-semibold text-[#1E1E1E]">
+                  ¿Qué ofrece este alojamiento?
+                </h3>
+                <button
+                  onClick={closeModal}
+                  aria-label="Cerrar"
+                  className="p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A8936D]"
+                >
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="p-6 max-h-[70vh] overflow-y-auto space-y-8">
+                {/* 1) INSTALACIONES */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <h4 className="font-montserrat text-lg font-semibold">INSTALACIONES</h4>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    {[
+                      { id: 'parque', titulo: 'Parque', Icon: TreeIcon },
+                      { id: 'pileta', titulo: 'Pileta', Icon: PoolIcon },
+                      { id: 'cochera', titulo: 'Cochera', Icon: CarIcon },
+                      { id: 'asador', titulo: 'Asador', Icon: GrillIcon },
+                    ].map((item) => (
+                      <div key={item.id} className="flex items-center gap-4 p-3 bg-white rounded-md shadow-sm w-full">
+                        <div className="w-12 h-12 rounded-md bg-stone-100 flex items-center justify-center text-stone-700">
+                          <item.Icon />
+                        </div>
+                        <div className="font-montserrat text-sm font-semibold text-[#1E1E1E]">{item.titulo}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 2) EQUIPAMIENTOS */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <h4 className="font-montserrat text-lg font-semibold">EQUIPAMIENTOS</h4>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    {[
+                      { id: 'tv', titulo: 'Televisión', Icon: TVIcon },
+                      { id: 'ac', titulo: 'Aire Acond./Calefacción', Icon: ACIcon },
+                      { id: 'fan', titulo: 'Ventilador', Icon: FanIcon },
+                      { id: 'cocina', titulo: 'Cocina', Icon: StoveIcon },
+                      { id: 'heladera', titulo: 'Heladera c/Freezer', Icon: FridgeIcon },
+                      { id: 'micro', titulo: 'Microondas', Icon: MicrowaveIcon },
+                    ].map((item) => (
+                      <div key={item.id} className="flex items-center gap-4 p-3 bg-white rounded-md shadow-sm w-full">
+                        <div className="w-12 h-12 rounded-md bg-stone-100 flex items-center justify-center text-stone-700">
+                          <item.Icon />
+                        </div>
+                        <div className="font-montserrat text-sm font-semibold text-[#1E1E1E]">{item.titulo}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3) SERVICIOS */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <h4 className="font-montserrat text-lg font-semibold">SERVICIOS</h4>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    {[
+                      { id: 'limpieza', titulo: 'Servicio de Limpieza', Icon: CleaningIcon },
+                      { id: 'ropa', titulo: 'Ropa de cama', Icon: BeddingIcon },
+                      { id: 'toallas', titulo: 'Toallas y Toallones', Icon: TowelsIcon },
+                      { id: 'wifi', titulo: 'WIFI', Icon: WifiIcon },
+                      { id: 'desayuno', titulo: 'Desayuno', Icon: BreakfastIcon },
+                    ].map((item) => (
+                      <div key={item.id} className="flex items-center gap-4 p-3 bg-white rounded-md shadow-sm w-full">
+                        <div className="w-12 h-12 rounded-md bg-stone-100 flex items-center justify-center text-stone-700">
+                          <item.Icon />
+                        </div>
+                        <div className="font-montserrat text-sm font-semibold text-[#1E1E1E]">{item.titulo}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 4) PROTECCIONES */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <h4 className="font-montserrat text-lg font-semibold">PROTECCIONES</h4>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    {[
+                      { id: 'matafuegos', titulo: 'Matafuegos', Icon: FireExtIcon },
+                      { id: 'luz', titulo: 'Luz de Emergencia', Icon: EmergencyLightIcon },
+                      { id: 'med', titulo: 'Emergencia Médica', Icon: MedicalIcon },
+                      { id: 'dif', titulo: 'Disyuntor diferencial', Icon: DifferentialIcon },
+                      { id: 'alarma', titulo: 'Alarma', Icon: AlarmIcon },
+                    ].map((item) => (
+                      <div key={item.id} className="flex items-center gap-4 p-3 bg-white rounded-md shadow-sm w-full">
+                        <div className="w-12 h-12 rounded-md bg-stone-100 flex items-center justify-center text-stone-700">
+                          <item.Icon />
+                        </div>
+                        <div className="font-montserrat text-sm font-semibold text-[#1E1E1E]">{item.titulo}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
