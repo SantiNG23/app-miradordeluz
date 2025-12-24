@@ -1,0 +1,126 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CabanaCarousel from "../react/CabanaCarousel";
+import ReservaSummary from "../react/ReservaSummary";
+import {
+  getReservaCabanaConfig,
+  getReservaCabanaImages,
+  SERVICIOS,
+} from "../../constants/reservasConfig";
+
+const { cabanaId } = Astro.props as { cabanaId: string };
+
+const cabanaConfig = getReservaCabanaConfig(cabanaId);
+if (!cabanaConfig) {
+  return Astro.redirect("/");
+}
+
+const images = getReservaCabanaImages(cabanaId);
+
+const MOCK_PRICE_RANGES = [
+  {
+    fecha_inicio: "2025-01-01",
+    fecha_fin: "2025-03-31",
+    precio_por_noche: cabanaConfig.precio_base,
+  },
+  {
+    fecha_inicio: "2025-04-01",
+    fecha_fin: "2025-12-14",
+    precio_por_noche: cabanaConfig.precio_base + 10000,
+  },
+  {
+    fecha_inicio: "2025-12-15",
+    fecha_fin: "2026-01-10",
+    precio_por_noche: cabanaConfig.precio_base + 35000,
+  },
+];
+
+const cabana = {
+  id: cabanaConfig.id,
+  nombre: cabanaConfig.nombre,
+  capacidad: cabanaConfig.capacidad,
+  precio_base: cabanaConfig.precio_base,
+};
+
+const pageTitle = `Reservar - ${cabana.nombre}`;
+---
+
+<Layout
+  title={pageTitle}
+  description="Formulario de reserva y detalle de la cabaña"
+  image="/videos/LagoSanRoque.mp4"
+>
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-12">
+    <!-- Breadcrumb + title -->
+    <div class="mb-6">
+      <a
+        class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+        href="/#nuestras-cabanas"
+        aria-label="Volver atrás"
+      >
+        ← Volver atrás
+      </a>
+      <h1 class="text-3xl font-extrabold text-[#1E1E1E] mt-3 text-center">
+        {cabana.nombre}
+      </h1>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pb-32 md:pb-0">
+      <!-- Izquierda: imágenes + servicios -->
+      <section class="space-y-8 md:col-span-2">
+        <!-- Carrusel de imágenes -->
+        <div>
+          <CabanaCarousel
+            client:visible
+            images={images}
+            alt={`Imágenes ${cabana.nombre}`}
+          />
+        </div>
+
+        <!-- Servicios -->
+        <div class="bg-white rounded-2xl p-6 shadow">
+          <h2 class="text-2xl font-bold text-gray-900 mb-5">Servicios</h2>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3">
+            {SERVICIOS.map((servicio) => (
+              <li class="flex items-start gap-3 text-gray-700">
+                <span
+                  class="mt-0.5 inline-flex w-6 h-6 items-center justify-center rounded-full bg-slate-100 text-slate-700 shrink-0"
+                  aria-hidden="true"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17l-5-5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium leading-snug">{servicio}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Derecha: panel de reserva -->
+      <aside class="md:col-span-1">
+        <div class="sticky top-24 space-y-6">
+          <ReservaSummary
+            client:visible
+            cabana={(cabana as any) ?? null}
+            priceRanges={MOCK_PRICE_RANGES}
+          />
+        </div>
+      </aside>
+    </div>
+  </main>
+</Layout>
+
+
