@@ -6,18 +6,26 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "convert:webp": "node scripts/convertToWebpFinal.js",
+    "rename:images": "node scripts/renameImages.js",
+    "generate:images": "node scripts/generateImageData.js"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
-    "@tailwindcss/vite": "^4.1.17",
-    "@types/react": "^19.2.6",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.15.9",
-    "gsap": "^3.13.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "astro": "^5.16.6",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.26",
+    "gsap": "^3.14.2",
+    "lucide-react": "^0.469.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
-    "tailwindcss": "^4.1.17"
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss": "^4.1.18"
   }
 }

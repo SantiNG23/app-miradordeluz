@@ -9,7 +9,6 @@ interface SectionUbicacionMiradorDeLuzProps {
   }[];
   fraseDestacada?: string;
   imagenPrincipal?: string;
-  imagenSecundaria?: string;
   fondoColor?: string;
   /* Clases Tailwind para controlar tamaños/estilos desde quien use el componente */
   tituloClass?: string;
@@ -37,8 +36,7 @@ Tenemos el alojamiento que vos necesitas en el mejor lugar.`,
 
   ],
   fraseDestacada = '¡Te esperamos para que vivas la experiencia Mirador de Luz!',
-  imagenPrincipal = 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800',
-  imagenSecundaria = 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=600',
+  imagenPrincipal = '../src/assets/images/cabana-2/cabaña-2-acceso.webp',
   fondoColor = 'bg-gradient-to-br from-amber-50/30 via-orange-50/20 to-stone-50',
   tituloClass = 'font-montserrat text-[36px] md:text-[25px] lg:text-[36px] font-extrabold text-[#1E1E1E] leading-tight',
   parrafoClass = 'font-montserrat text-[12px] md:text-[18px] font-medium text-[#4A4A4A] leading-relaxed',
@@ -81,7 +79,7 @@ Tenemos el alojamiento que vos necesitas en el mejor lugar.`,
   };
 
   return (
-    <section id="ubicacion-section" className={`w-full ${fondoColor} relative overflow-hidden my-8`}>
+    <section id="ubicacion-section" className={`w-full min-h-screen ${fondoColor} relative overflow-hidden flex items-center`}>
       {/* Textura sutil de fondo (opcional) */}
       <div className="absolute inset-0 opacity-[0.02]"
         style={{
@@ -89,8 +87,8 @@ Tenemos el alojamiento que vos necesitas en el mejor lugar.`,
         }}
       />
 
-      <div className="w-full px-2 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+      <div className="w-full px-2 md:px-6 lg:px-8 py-12 md:py-16 lg:py-20 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
 
           {/* Columna izquierda - Texto */}
           <div className="space-y-6 lg:pr-12 lg:w-7/12">
@@ -141,27 +139,15 @@ Tenemos el alojamiento que vos necesitas en el mejor lugar.`,
           </div>
 
           {/* Columna derecha - Imágenes superpuestas */}
-          <div className="relative w-full lg:w-5/12 lg:pl-8 h-[500px] md:h-[600px] lg:h-[650px]">
-            {/* Imagen principal (fondo) */}
-            <div className="absolute top-0 right-0 w-[90%] h-[86%] lg:w-[92%] lg:h-[88%]">
-              <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
-                <img
-                  src={imagenPrincipal}
-                  alt="Vista del complejo Mirador de Luz"
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-            </div>
-
-            {/* Imagen secundaria (superpuesta) */}
-            <div className="absolute bottom-0 left-[-6%] w-[78%] h-[60%] lg:left-[-8%] lg:w-[70%] lg:h-[60%] z-20">
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border-8 border-white shadow-2xl transform -rotate-1 hover:scale-105 hover:rotate-0 transition-transform duration-300">
-                <img
-                  src={imagenSecundaria}
-                  alt="Cabaña Mirador de Luz"
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
+          <div className="relative w-full lg:w-5/12 lg:pl-8 flex items-start">
+            {/* Imagen principal (participa en el flujo para igualar altura con la columna izquierda) */}
+            <div className="w-full rounded-3xl aspect-[4/5] overflow-hidden shadow-2xl">
+              <img
+                src={imagenPrincipal}
+                alt="Vista del complejo Mirador de Luz"
+                className="w-full h-full object-cover object-center"
+                style={{ minHeight: '220px', aspectRatio: '4/5' }}
+              />
             </div>
 
             {/* Decoración adicional (opcional) */}

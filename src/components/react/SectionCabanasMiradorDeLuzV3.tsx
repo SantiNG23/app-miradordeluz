@@ -1,10 +1,8 @@
 import type { FC, ReactNode } from 'react';
-import { FiWifi, FiCoffee, FiTruck, FiCheck, FiClock, FiEye, FiLayers, FiPlus, FiTv, FiWind, FiDivide, FiAlertCircle, FiBell, FiAlertTriangle, FiArrowRight } from "react-icons/fi";
-import { GiBarbecue, GiFlame, GiPineTree, GiBed, GiCooler } from "react-icons/gi";
-import { MdOutlinePool, MdGarage, MdEmergency, MdLightMode } from "react-icons/md";
-import { FaUtensils, FaFireExtinguisher, FaBed } from "react-icons/fa6";
-import { PiOvenDuotone, PiFanDuotone } from "react-icons/pi";
-import { TbAirConditioning } from "react-icons/tb";
+import { FiWifi, FiTv, FiArrowRight } from "react-icons/fi";
+import { GiPineTree } from "react-icons/gi";
+import { MdGarage } from "react-icons/md";
+import { FaFireExtinguisher, FaBed, FaUtensils } from "react-icons/fa6";
 
 // Iconos SVG para amenities
 const WifiIcon: FC = () => (
@@ -76,7 +74,7 @@ const cabanasDefault: Cabana[] = [
       { icon: <MountainIcon />, label: 'Vista a montañas' },
       { icon: <GarageIcon />, label: 'Cochera' },
     ],
-    imagenUrl: 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1200',
+    imagenUrl: '/images/cabana-1/cabana-1-portada-1.webp',
   },
   {
     id: '2',
@@ -89,7 +87,7 @@ const cabanasDefault: Cabana[] = [
       { icon: <KitchenIcon />, label: 'Cocina equipada' },
       { icon: <GarageIcon />, label: 'Cochera' },
     ],
-    imagenUrl: 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=1200',
+    imagenUrl: '/images/cabana-2/cabana-2-1.webp',
   },
   {
     id: '3',
@@ -102,7 +100,7 @@ const cabanasDefault: Cabana[] = [
       { icon: <KitchenIcon />, label: 'Cocina completa' },
       { icon: <GarageIcon />, label: 'Cochera' },
     ],
-    imagenUrl: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1200',
+    imagenUrl: '/images/cabana-3/cabana-3-3.webp',
   },
   {
     id: '4',
@@ -115,7 +113,7 @@ const cabanasDefault: Cabana[] = [
       { icon: <KitchenIcon />, label: 'Cocina completa' },
       { icon: <GarageIcon />, label: 'Cochera' },
     ],
-    imagenUrl: 'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=1200',
+    imagenUrl: '/images/exterior/exterior-42.webp',
   },
 ];
 
@@ -125,27 +123,9 @@ const SectionCabanasMiradorDeLuzV3: FC<SectionCabanasMiradorDeLuzV3Props> = ({
   onVerFotos,
   onVerDetalles,
 }) => {
-  const handleReservar = (cabanaId: string) => {
-    if (onReservar) {
-      onReservar(cabanaId);
-    } else {
-      window.location.href = `/reservas?cabana=${cabanaId}`;
-    }
-  };
-  const handleVerFotos = (cabanaId: string) => {
-    // Priorizar prop nueva `onVerFotos`, luego compatibilidad con `onVerDetalles`,
-    // y por último redirigir a la galería con filtro por cabana (query param).
-    if (onVerFotos) {
-      onVerFotos(cabanaId);
-    } else if (onVerDetalles) {
-      onVerDetalles(cabanaId);
-    } else {
-      window.location.href = `/galeria?cabana=${encodeURIComponent(cabanaId)}`;
-    }
-  };
 
   return (
-    <section className="w-full bg-stone-50 py-2">
+    <section className="w-full bg-stone-100 pt-[50px] pb-0" id="nuestras-cabanas">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Header con título y descripción */}
         <div className="text-center mb-16 md:mb-20">
@@ -178,7 +158,7 @@ const SectionCabanasMiradorDeLuzV3: FC<SectionCabanasMiradorDeLuzV3Props> = ({
                 {/* Usar flex con dirección alternada */}
                 <div className={`flex flex-col ${esPar ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 relative items-center`}>
                   {/* Imagen de la cabaña */}
-                  <div className="relative w-full lg:w-[60%] h-[360px] md:h-[420px] lg:h-[460px] overflow-hidden rounded-3xl">
+                  <div className="relative w-full lg:w-[60%] aspect-[3/2] overflow-hidden rounded-3xl">
                     <img
                       src={cabana.imagenUrl}
                       alt={cabana.nombre}
@@ -222,23 +202,23 @@ const SectionCabanasMiradorDeLuzV3: FC<SectionCabanasMiradorDeLuzV3Props> = ({
                       {/* Botones */}
                       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                         {/* Botón Reservar */}
-                        <button
-                          onClick={() => handleReservar(cabana.id)}
+                        <a
+                          href={`/reserva-cabana-${cabana.id}`}
                           className="font-montserrat flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 rounded-full font-semibold text-sm hover:from-amber-700 hover:to-amber-800 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl"
                         >
                           <span>Reservar</span>
                           <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
                             <ArrowRightIcon />
                           </span>
-                        </button>
+                        </a>
 
                         {/* Botón Ver fotos */}
-                        <button
-                          onClick={() => handleVerFotos(cabana.id)}
+                        <a
+                          href={`/galeria?cabana=${encodeURIComponent(cabana.id)}`}
                           className="font-montserrat flex-1 inline-flex items-center justify-center gap-2 border-2 border-gray-600 text-gray-700 px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-100 transition-all"
                         >
                           <span>Ver fotos</span>
-                        </button>
+                        </a>
                       </div>
                     </div>
                   </div>

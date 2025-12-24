@@ -19,24 +19,6 @@ html {
   }
 }
 
-/* Estilos para ocultar el navbar cuando el hero intermedio está visible */
-body.hide-navbar nav,
-body.hide-navbar header {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-100%);
-  transition: all 0.5s ease-out;
-}
-
-/* Asegurar que el navbar vuelva a aparecer cuando salga del hero */
-body:not(.hide-navbar) nav,
-body:not(.hide-navbar) header {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-  transition: all 0.5s ease-out;
-}
-
 /* Estilos para ocultar el navbar globalmente (fuera del Hero Principal) */
 body.hide-navbar-global nav,
 body.hide-navbar-global header {
@@ -63,4 +45,20 @@ body:not(.hide-navbar-global) header {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Animaciones para la Galería */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
 }

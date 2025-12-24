@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import NavbarMiradorDeLuz from "../components/react/NavbarMiradorDeLuz";
-import GaleriaMiradorDeLuz from "../components/react/GaleriaMiradorDeLuz";
+import Gallery from "../components/react/Gallery/Gallery";
 import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
 ---
 
-<Layout 
-  title="Galería - Mirador de Luz" 
+<Layout
+  title="Galería - Mirador de Luz"
   description="Explorá nuestras cabañas, instalaciones y espacios del complejo Mirador de Luz en Villa Carlos Paz."
 >
   <!-- Navbar fijo con fondo igual al footer -->
@@ -16,7 +16,7 @@ import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
 
   <main class="pt-20">
     <!-- Componente de galería -->
-    <GaleriaMiradorDeLuz client:load />
+    <Gallery client:load />
   </main>
 
   <!-- Footer -->
@@ -26,7 +26,6 @@ import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
 <style>
   /* Aplicar gradiente solo al navbar principal (el nav con clase fixed) */
   .navbar-wrapper-galeria :global(nav.fixed) {
-    background: linear-gradient(to bottom, rgb(31, 41, 55), rgb(17, 24, 39)) !important;
     backdrop-filter: none !important;
   }
 
@@ -35,4 +34,3 @@ import FooterMiradorDeLuz from "../components/react/FooterMiradorDeLuz";
     background: white !important;
   }
 </style>
-

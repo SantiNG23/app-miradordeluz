@@ -56,7 +56,7 @@ const estilosPorSeccion: Record<string, SeccionEstilo> = {
     buttonGradient: 'from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600',
   },
   default: {
-    background: 'bg-black/80 backdrop-blur-md shadow-lg',
+    background: 'bg-gradient-to-b from-gray-800 to-gray-900 shadow-lg',
     textColor: 'text-white',
     hoverColor: 'hover:text-amber-300',
     logoColor: 'text-white',
@@ -269,8 +269,8 @@ const NavbarMiradorDeLuz: FC<NavbarMiradorDeLuzProps> = ({
   // Obtener estilos de la sección actual
   const estiloActual = estilosPorSeccion[seccionActual] || estilosPorSeccion.default;
 
-  // Si está en sección Hero o es página Hero, usar transparente; si no, usar el estilo de la sección
-  const backgroundClass = (isHeroPage || isInHeroSection) ? 'bg-transparent' : estiloActual.background;
+  // Si es página Hero Y está en sección Hero, usar transparente; si NO es página Hero, usar el gradiente del footer
+  const backgroundClass = (isHeroPage && isInHeroSection) ? 'bg-transparent' : 'bg-gradient-to-b from-gray-800 to-gray-900';
 
   // Aplicar clase de ocultación si no debe mostrar
   const navClass = `fixed top-0 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-4 transition-all duration-500 ${backgroundClass} ${!shouldShowNavbar
