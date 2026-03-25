@@ -3,8 +3,8 @@ import Layout from "../../layouts/Layout.astro";
 import NavbarMiradorDeLuz from "@components/layout/Navbar";
 import FooterMiradorDeLuz from "@components/layout/Footer";
 import CabanaGalleryGrid from "@components/domain/gallery/CabanaGalleryGrid";
-import ReservaStickyCard from "@components/domain/booking/ReservaStickyCard";
 import AmenitiesModal from "@components/common/AmenitiesModal";
+import ReservaQuoteWidget from "@components/domain/booking/ReservaQuoteWidget";
 import { IconUsers, IconBed, IconBath } from "@components/common/Icons";
 import {
   getReservaCabanaConfig,
@@ -168,7 +168,7 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12">
               <div class="flex items-start gap-5 group font-montserrat">
-                <div class="w-14 h-14 rounded-2xl bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                   <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" /></svg>
                 </div>
                 <div>
@@ -178,7 +178,7 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
               </div>
 
               <div class="flex items-start gap-5 group font-montserrat">
-                <div class="w-14 h-14 rounded-2xl bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                   <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                 </div>
                 <div>
@@ -188,7 +188,7 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
               </div>
 
               <div class="flex items-start gap-5 group font-montserrat">
-                <div class="w-14 h-14 rounded-2xl bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.5-7 3 3 3 6 1 9 3.5-2 5-3 5-3s1 1 1 2c0 1.5-1 4-1.5 5.5l1.657 1.657z" /></svg>
                 </div>
                 <div>
@@ -198,7 +198,7 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
               </div>
 
               <div class="flex items-start gap-5 group font-montserrat">
-                <div class="w-14 h-14 rounded-2xl bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                   <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </div>
                 <div>
@@ -208,7 +208,7 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
               </div>
 
               <div class="flex items-start gap-5 group font-montserrat">
-                <div class="w-14 h-14 rounded-2xl bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                   <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
                 <div>
@@ -218,7 +218,7 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
               </div>
 
               <div class="flex items-start gap-5 group font-montserrat">
-                <div class="w-14 h-14 rounded-2xl bg-slate-900 flex-shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 shrink-0 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110">
                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                 </div>
                 <div>
@@ -240,9 +240,15 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
 
           <hr class="border-slate-200" />
 
-          <!-- Tarjeta de Reserva para Mobile (Arriba del Mapa) -->
+          <!-- Módulo de Reserva para Mobile -->
           <div class="lg:hidden">
-            <ReservaStickyCard client:load cabanaName={cabana.nombre} isSticky={false} />
+            <ReservaQuoteWidget
+              client:load
+              cabanaId={cabana.id}
+              cabanaNombre={cabana.nombre}
+              capacidad={cabana.capacidad}
+              variant="mobile"
+            />
           </div>
 
           <!-- Ubicación -->
@@ -273,10 +279,16 @@ const currentAmenities = amenityTexts[cabana.id] || amenityTexts['default'];
           </section>
         </div>
 
-        <!-- RIGHT COLUMN (Sticky Card - Desktop Only) -->
+        <!-- RIGHT COLUMN (Reserva - Desktop Only) -->
         <aside class="hidden lg:block relative h-full">
           <div class="lg:sticky lg:top-32 pb-12">
-            <ReservaStickyCard client:load cabanaName={cabana.nombre} />
+            <ReservaQuoteWidget
+              client:load
+              cabanaId={cabana.id}
+              cabanaNombre={cabana.nombre}
+              capacidad={cabana.capacidad}
+              variant="desktop"
+            />
           </div>
         </aside>
 

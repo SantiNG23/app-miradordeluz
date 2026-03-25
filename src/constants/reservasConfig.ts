@@ -10,6 +10,7 @@ export type ReservaCabanaConfig = {
   nombre: string;
   capacidad: number;
   precio_base: number;
+  backendCabinId: number;
   imageFolder: `cabana-${ReservaCabanaId}`;
 };
 
@@ -72,6 +73,7 @@ export const CABANAS_RESERVA: Record<ReservaCabanaId, ReservaCabanaConfig> = {
     nombre: "Cabaña 1",
     capacidad: 4,
     precio_base: 85000,
+    backendCabinId: 6,
     imageFolder: "cabana-1",
   },
   "2": {
@@ -79,6 +81,7 @@ export const CABANAS_RESERVA: Record<ReservaCabanaId, ReservaCabanaConfig> = {
     nombre: "Cabaña 2",
     capacidad: 6,
     precio_base: 110000,
+    backendCabinId: 2,
     imageFolder: "cabana-2",
   },
   "3": {
@@ -86,6 +89,7 @@ export const CABANAS_RESERVA: Record<ReservaCabanaId, ReservaCabanaConfig> = {
     nombre: "Cabaña 3",
     capacidad: 4,
     precio_base: 98000,
+    backendCabinId: 3,
     imageFolder: "cabana-3",
   },
   "4": {
@@ -93,6 +97,7 @@ export const CABANAS_RESERVA: Record<ReservaCabanaId, ReservaCabanaConfig> = {
     nombre: "Cabaña 4",
     capacidad: 6,
     precio_base: 135000,
+    backendCabinId: 4,
     imageFolder: "cabana-4",
   },
 };

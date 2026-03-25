@@ -62,3 +62,114 @@ body:not(.hide-navbar-global) header {
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+.mirador-date-picker {
+  --rdp-accent-color: #c2410c;
+  --rdp-accent-background-color: #ffedd5;
+  --rdp-range_middle-background-color: #ffedd5;
+  --rdp-range_middle-color: #9a3412;
+  --rdp-day-width: 42px;
+  --rdp-day-height: 42px;
+  --rdp-day_button-width: 42px;
+  --rdp-day_button-height: 42px;
+  --rdp-day_button-border-radius: 14px;
+  --rdp-nav_button-width: 36px;
+  --rdp-nav_button-height: 36px;
+  --rdp-animation_duration: 0.2s;
+  --rdp-months-gap: 1.25rem;
+}
+
+.mirador-date-picker .rdp-months {
+  justify-content: space-between;
+}
+
+.mirador-date-picker .rdp-month {
+  background: linear-gradient(180deg, #fff7ed 0%, #ffffff 22%);
+  border: 1px solid #fed7aa;
+  border-radius: 1.25rem;
+  padding: 0.9rem;
+  box-shadow: 0 18px 30px -28px rgba(15, 23, 42, 0.35);
+}
+
+.mirador-date-picker .rdp-month_caption {
+  margin-bottom: 0.5rem;
+}
+
+.mirador-date-picker .rdp-caption_label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.mirador-date-picker .rdp-button_previous,
+.mirador-date-picker .rdp-button_next {
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #c2410c;
+  box-shadow: 0 8px 18px -14px rgba(15, 23, 42, 0.3);
+}
+
+.mirador-date-picker .rdp-button_previous:hover,
+.mirador-date-picker .rdp-button_next:hover {
+  background: #fff7ed;
+  border-color: #fdba74;
+}
+
+.mirador-date-picker .rdp-weekday {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.mirador-date-picker .rdp-day_button {
+  font-weight: 600;
+  color: #334155;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mirador-date-picker .rdp-day_button:hover {
+  background: #fff7ed;
+  color: #c2410c;
+  transform: translateY(-1px);
+}
+
+.mirador-date-picker .rdp-today:not(.rdp-outside) {
+  color: #c2410c;
+  font-weight: 700;
+}
+
+.mirador-date-picker .rdp-selected .rdp-day_button,
+.mirador-date-picker .rdp-range_start .rdp-day_button,
+.mirador-date-picker .rdp-range_end .rdp-day_button {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.mirador-date-picker .rdp-range_middle .rdp-day_button {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.mirador-date-picker .rdp-outside {
+  opacity: 0.35;
+}
+
+@media (max-width: 640px) {
+  .mirador-date-picker {
+    --rdp-day-width: 38px;
+    --rdp-day-height: 38px;
+    --rdp-day_button-width: 38px;
+    --rdp-day_button-height: 38px;
+  }
+
+  .mirador-date-picker .rdp-month {
+    padding: 0.75rem;
+  }
+}
